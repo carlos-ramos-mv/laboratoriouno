@@ -31,6 +31,7 @@
     "/assets/js/pages/ico-landing.init.js": "/assets/js/pages/ico-landing.init.js",
     "/assets/js/pages/jquery-knob.init.js": "/assets/js/pages/jquery-knob.init.js",
     "/assets/js/pages/leaflet-map.init.js": "/assets/js/pages/leaflet-map.init.js",
+    "/assets/js/pages/leaflet-us-states.js": "/assets/js/pages/leaflet-us-states.js",
     "/assets/js/pages/lightbox.init.js": "/assets/js/pages/lightbox.init.js",
     "/assets/js/pages/materialdesign.init.js": "/assets/js/pages/materialdesign.init.js",
     "/assets/js/pages/product-filter-range.init.js": "/assets/js/pages/product-filter-range.init.js",

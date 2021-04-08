@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InicioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+
+Auth::routes(['verify' => true]);
+
+//PÁGINA DE INICIO
+Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
 
