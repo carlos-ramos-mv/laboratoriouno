@@ -15,8 +15,8 @@
 @section('favicons')
 
     {{-- <!-- Favicons --> --}}
-    <link rel="apple-touch-icon" href={{ asset('/img/Logo-Juriquilla-Negro.png') }}>
-    <link rel="icon" href={{ asset('/img/Logo-Juriquilla-Negro.png') }}>
+    <link rel="apple-touch-icon" href={{ asset('assets/images/logos/logo-enes-oro.png') }}>
+    <link rel="icon" href={{ asset('assets/images/logos/logo-enes-oro.png') }}>
 
 @endsection
     
