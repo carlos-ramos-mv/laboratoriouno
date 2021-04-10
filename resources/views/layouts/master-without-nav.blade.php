@@ -12,6 +12,8 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ URL::asset('assets/images/logos/logo-enes-oro.png')}}">
         @include('layouts.head-css')
+        @yield('recaptcha')
+        
   </head>
 
     @yield('body')

@@ -43,7 +43,7 @@
 
           <ul class="topbar-nav nav">
 
-            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/">Inicio</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Lorem</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Ipsum</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Nuestro Equipo</a></li>

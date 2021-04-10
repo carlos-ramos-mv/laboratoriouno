@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InicioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +21,15 @@ Auth::routes();
 Auth::routes(['verify' => true]);
 
 //PÁGINA DE INICIO
-Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
+Route::get('/', [InicioController::class, 'root'])->name('root');
 
+//Index Route
+Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
+//Curso Route
+Route::get('/curso/{curso}', function ($curso) {
+    return view('curso');
+})->name('curso');
 
 //Update User Details
 Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');
@@ -33,4 +39,7 @@ Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 
 //Any Route
-Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('{any}', [HomeController::class, 'any'])->name('any');
+
+
+

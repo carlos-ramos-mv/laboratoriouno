@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ URL::asset('/assets/libs/owl.carousel/owl.carousel.min.css') }}">
 @endsection
 
+@section('recaptcha')
+    <!--  RECAPTCHA SCRIPT  -->
+    {!! htmlScriptTagJsApi() !!}
+@endsection
+
 @section('body')
 
     <body class="auth-body-bg d-flex justify-content-center">
@@ -26,7 +31,7 @@
 
                                 <div class="d-flex flex-column h-100">
                                     <div class="mb-4 mb-md-5 d-flex justify-content-center">
-                                        <a href="{{ route('inicio') }}" class="d-block auth-logo">
+                                        <a href="{{ route('root') }}" class="d-block auth-logo">
                                             <img src="{{ URL::asset('/assets/images/logos/logo-enes-azul.png') }}" alt="logo-enes" height="100">
                                             <img src="{{ URL::asset('/assets/images/logos/logo-hpc-sin-texto.png') }}" alt="logo-hpc" height="100" class="ms-5">
                                         </a>

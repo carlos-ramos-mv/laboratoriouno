@@ -10,6 +10,7 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logos/logo-enes-oro.png') }}">
     @include('layouts.head-css')
+
 </head>
 
 @section('body')
@@ -18,11 +19,11 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
         @include('layouts.user-topbar')
-        @include('layouts.user-sidebar')
+        
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
-        <div class="main-content">
+        <div class="main-content" style="background-color: rgb(179, 173, 173)">
             <div class="page-content">
                 <div class="container-fluid">
                     @yield('content')
