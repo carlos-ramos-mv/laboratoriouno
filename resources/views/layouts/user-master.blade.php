@@ -19,7 +19,13 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
         @include('layouts.user-topbar')
-        
+
+        <x-sidebar>
+            <x-slot name="elementos">
+                @yield('elementos-sidebar')
+            </x-slot>
+        </x-sidebar>
+
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->

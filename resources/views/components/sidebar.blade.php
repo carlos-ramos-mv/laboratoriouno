@@ -8,12 +8,7 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title" key="t-menu" style="color: #fff">Cursos</li>
-                {{-- @lang('translation.Menu') --}}
-                <li>
                     {{$elementos}}
-                </li>
-
             </ul>
         </div>
         <!-- Sidebar -->

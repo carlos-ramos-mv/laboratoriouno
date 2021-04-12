@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curso;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -28,7 +29,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+
+        $cursos = Curso::paginate();
+        return view('index', compact('cursos'));
     }
 
     public function root()

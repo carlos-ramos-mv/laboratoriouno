@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CursoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InicioController;
 use Illuminate\Support\Facades\Auth;
@@ -27,9 +28,7 @@ Route::get('/', [InicioController::class, 'root'])->name('root');
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 //Curso Route
-Route::get('/curso/{curso}', function ($curso) {
-    return view('curso');
-})->name('curso');
+Route::get('/curso/{curso}', [CursoController::class, 'show'])->name('curso.show');
 
 //Update User Details
 Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');
