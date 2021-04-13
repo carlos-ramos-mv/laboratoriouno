@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\ModuloController;
+use App\Http\Controllers\TemaController;
+use App\Models\Actividad;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +31,17 @@ Route::get('/', [InicioController::class, 'root'])->name('root');
 //Index Route
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-//Curso Route
+//Curso Show Route
 Route::get('/curso/{curso}', [CursoController::class, 'show'])->name('curso.show');
+
+//Modulo Show Route
+Route::get('/modulo/{modulo}', [ModuloController::class, 'show'])->name('modulo.show');
+
+//Tema Show Route
+Route::get('/tema/{tema}', [TemaController::class, 'show'])->name('tema.show');
+
+//Actividad Show Route
+Route::get('/actividad/{actividad}', [ActividadController::class, 'show'])->name('actividad.show');
 
 //Update User Details
 Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');

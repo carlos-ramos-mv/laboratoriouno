@@ -28,10 +28,16 @@
 
 <div class="row">
 
+    <div class="container mb-3">
+        <div>
+            <h1>Cursos en progreso</h1>
+        </div>
+    </div>
+
     @foreach ($cursos as $curso)
         
-    <div class="col-md-4">
-        <div class="card">
+    <div class="col-md-3">
+        <div class="card shadow-lg">
             <img class="card-img-top img-fluid" src="{{ URL::asset('/assets/images/small/img-1.jpg') }}" alt="Card image cap">
             <div class="card-body">
                 <h4 class="card-title mt-0">{{$curso->nombre}}</h4>

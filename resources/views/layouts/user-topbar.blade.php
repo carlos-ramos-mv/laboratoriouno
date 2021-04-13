@@ -3,7 +3,7 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box" style="background-color: #002B7A">
-                <a href="index" class="logo logo-dark">
+                <a href="{{route('index')}}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{{ URL::asset ('/assets/images/enes-juriquilla.png') }}" alt="" height="22">
                     </span>
@@ -12,7 +12,7 @@
                     </span>
                 </a>
 
-                <a href="index" class="logo logo-light">
+                <a href="{{route('index')}}" class="logo logo-light">
                     <span class="logo-lg me-3">
                         <img src="{{ URL::asset ('/assets/images/logos/logo-enes-blanco.png') }}" alt="" height="50">
                     </span>
