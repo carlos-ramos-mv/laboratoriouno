@@ -29,7 +29,7 @@
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
-        <div class="main-content" style="background-color: rgb(179, 173, 173)">
+        <div class="main-content" style="border: 1px solid red">
             <div class="page-content">
                 <div class="container-fluid">
                     @yield('content')

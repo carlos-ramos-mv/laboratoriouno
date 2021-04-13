@@ -294,11 +294,10 @@
 
         <div class="dropdown d-inline-block">
 
-            {{-- BOTON DE NOTIFICACIONES  waves-effect--}}
-            <button type="button" class="btn header-item noti-icon" id="page-header-notifications-dropdown"
+            {{-- BOTON DE NOTIFICACIONES  bx-tada --}}
+            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bx bx-bell bx-tada"></i>
-                <span class="badge bg-danger rounded-pill">3</span>
+                <i class="bx bx-bell"></i>
             </button>
             {{-- AREA DE NOTIFICACIONES --}}
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
