@@ -20,4 +20,8 @@ class ModuloController extends Controller
         return view('cursos.modulos.show', compact('data'));
     }
 
+    public function create(){
+        
+    }
+
 }
