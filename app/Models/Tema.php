@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Tema extends Model
 {
     use HasFactory;
+
+    public function actividades()
+    {
+        return $this->hasMany(Actividad::class);
+    }
+
+    public function modulo()
+    {
+        return $this->belongsTo(Modulo::class);
+    }
+    
 }

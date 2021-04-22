@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class ModuloController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('verified');
+    }
+    
     public function show($id){
 
         $modulo = Modulo::find($id);
@@ -21,7 +28,7 @@ class ModuloController extends Controller
     }
 
     public function create(){
-        
+        return view('cursos.modulos.create');
     }
 
 }

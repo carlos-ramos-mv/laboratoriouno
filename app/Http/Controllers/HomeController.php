@@ -20,6 +20,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('verified');
     }
 
     /**
@@ -29,9 +30,24 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $role = $user->getRoleNames();
 
-        $cursos = Curso::paginate();
-        return view('index', compact('cursos'));
+        switch ($role[0]) {
+            case 'Admin':
+                return redirect()->route('admin.home');
+                break;
+            case 'Instructor':
+                return redirect()->route('instructor.home');
+                break;
+            case 'Alumno':
+                return redirect()->route('alumno.home');
+                break;
+            default:
+                return redirect()->route('logout');
+                break;
+            }
     }
 
     public function root()

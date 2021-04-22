@@ -11,4 +11,9 @@ class Institucion extends Model
     protected $table = "instituciones";
 
     use HasFactory;
+
+    public function users(){
+        return $this->hasMany(User::class);
+    }
+
 }
