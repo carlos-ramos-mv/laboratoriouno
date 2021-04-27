@@ -55,7 +55,7 @@ class ModuloController extends Controller
 
         $modulo = Modulo::latest('id')->first();
 
-        return redirect()->action([CursoController::class, 'show'], $request->curso)->with('modulo', '¡Módulo agregado correctamente!');
+        return redirect()->action([CursoController::class, 'show'], $request->curso)->with('modulo-store', '¡Módulo agregado correctamente!');
     }
 
     /**
@@ -64,9 +64,8 @@ class ModuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Modulo $modulo)
     {
-        $modulo = Modulo::find($id);
         $temas = $modulo->temas;
         return view('admin.modulos.show',compact('modulo','temas'));
     }
@@ -77,9 +76,9 @@ class ModuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Modulo $modulo)
     {
-        //
+        return view('admin.modulos.edit',compact('modulo'));
     }
 
     /**
@@ -89,9 +88,15 @@ class ModuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Modulo $modulo)
     {
-        //
+        $modulo->numero = $request->numero;
+        $modulo->titulo = $request->titulo;
+        $modulo->descripcion = $request->descripcion;
+
+        $modulo->save();
+
+        return redirect()->route('admin.cursos.show',$modulo->curso_id)->with('modulo-update','¡Módulo actualizado correctamente!');
     }
 
     /**
@@ -100,8 +105,10 @@ class ModuloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Modulo $modulo)
     {
-        //
+        $curso = $modulo->curso_id;
+        $modulo->delete();
+        return redirect()->route('admin.cursos.show',$curso)->with('modulo-delete','¡Módulo eliminado correctamente!');
     }
 }

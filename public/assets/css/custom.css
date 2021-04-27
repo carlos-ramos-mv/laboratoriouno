@@ -86,6 +86,92 @@
     background-color: rgba(85, 110, 230, .4)
 }
 
-code {
+
+/* code {
     background: lightgray;
+} */
+
+body[data-sidebar=dark] .navbar-brand-box {
+    background: #002B7A
+}
+
+body[data-sidebar=dark] .logo-dark {
+    display: none
+}
+
+body[data-sidebar=dark] .logo-light {
+    display: block
+}
+
+body[data-sidebar=dark] .vertical-menu {
+    background: #002B7A
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a {
+    color: #c2cbe5
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a i {
+    color: #888fa5
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a:hover,
+body[data-sidebar=dark] #sidebar-menu ul li a:hover i {
+    color: #fff
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li:hover {
+    background: #002261;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li:hover ul {
+    background: #002B7A;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a {
+    color: #c2cbe5
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a:hover {
+    color: #fff
+}
+
+body[data-sidebar=dark].vertical-collpsed {
+    min-height: 1760px
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>a {
+    background: #002261;
+    color: #fff
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>a i {
+    color: #fff
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>ul a {
+    color: #79829c
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>ul a:hover {
+    color: #fff
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul ul {
+    background-color: #002B7A
+}
+
+body[data-sidebar=dark] .mm-active,
+body[data-sidebar=dark] .mm-active .active,
+body[data-sidebar=dark] .mm-active .active i,
+body[data-sidebar=dark] .mm-active>a,
+body[data-sidebar=dark] .mm-active>a i,
+body[data-sidebar=dark] .mm-active>i,
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active,
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active i {
+    color: #fff!important
+}
+
+body[data-sidebar=dark] .menu-title {
+    color: #fff
 }

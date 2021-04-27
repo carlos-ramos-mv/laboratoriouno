@@ -12,11 +12,13 @@
 
 @section('content')
 
-<div class="container">
-    <h1>Dashboard</h1>
-    <div class="card">
-        <div class="card-body">
-            <p>Elementos del dashboard</p>
+<div class="container-fluid">
+    <div class="row">
+        <h1>Dashboard</h1>
+        <div class="card">
+            <div class="card-body">
+                <p>Elementos del dashboard</p>
+            </div>
         </div>
     </div>
 </div>

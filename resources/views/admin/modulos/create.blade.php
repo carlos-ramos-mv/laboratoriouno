@@ -15,45 +15,48 @@
 
 @section('content')
 
+<div class="container-fluid">
+    <div class="row">
 
-<div class="container p-0">
-
-    <div class=""><h1 class="">Agregar un nuevo módulo</h1></div>
-    <div class="container">
-        <div class="mt-3 bg-white p-3">
-            <form class="needs-validation" novalidate method="POST" action="{{route('admin.modulos.store')}}">
-                @csrf
-                <div class="row">
-                    <div class="col-lg-8">
-
-                        <div class="mb-3">
-                            <label class="form-label">Número del módulo</label>
-                            <input id="numero" name="numero" class="form-control" type="number" placeholder="Escriba el numero" required>
-                            <x-feedback></x-feedback>
+        <div class=""><h1 class="">Agregar un nuevo módulo</h1></div>
+        <div class="container">
+            <div class="mt-3 bg-white p-3">
+                <form class="needs-validation" novalidate method="POST" action="{{route('admin.modulos.store')}}">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-8">
+    
+                            <div class="mb-3">
+                                <label class="form-label">Número del módulo</label>
+                                <input id="numero" name="numero" class="form-control" type="number" placeholder="Escriba el numero" required>
+                                <x-feedback></x-feedback>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nombre/título del módulo</label>
+                                <input id="titulo" name="titulo" class="form-control" type="text" placeholder="Escriba el nombre" required>
+                                <x-feedback></x-feedback>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label class="form-label">Descripción del módulo</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+                                <x-feedback></x-feedback>
+                            </div>
+    
+                            <x-agregar-cancelar></x-agregar-cancelar>
+    
+                            <input class="form-control" type="hidden" name="curso" id="curso" value="{{$_GET['curso']}}">
+    
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nombre/título del módulo</label>
-                            <input id="titulo" name="titulo" class="form-control" type="text" placeholder="Escriba el nombre" required>
-                            <x-feedback></x-feedback>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Descripción del módulo</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
-                            <x-feedback></x-feedback>
-                        </div>
-
-                        <x-agregar-cancelar></x-agregar-cancelar>
-
-                        <input class="form-control" type="hidden" name="curso" id="curso" value="{{$_GET['curso']}}">
-
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
+    
     </div>
-
 </div>
+
+
 
 
 @endsection

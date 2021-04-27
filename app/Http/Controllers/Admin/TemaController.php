@@ -52,7 +52,7 @@ class TemaController extends Controller
 
         $tema = Tema::latest('id')->first();
 
-        return redirect()->action([ModuloController::class, 'show'], $request->modulo)->with('tema', 'Tema agregado correctamente!');
+        return redirect()->action([ModuloController::class, 'show'], $request->modulo)->with('tema-store', '¡Tema agregado correctamente!');
     }
 
     /**
@@ -61,9 +61,8 @@ class TemaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tema $tema)
     {
-        $tema = Tema::find($id);
         return view('admin.temas.show',compact('tema'));
     }
 
@@ -73,9 +72,9 @@ class TemaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tema $tema)
     {
-        //
+        return view('admin.temas.edit',compact('tema'));
     }
 
     /**
@@ -85,9 +84,15 @@ class TemaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tema $tema)
     {
-        //
+        $tema->titulo = $request->titulo;
+        $tema->descripcion = $request->descripcion;
+        $tema->contenido = $request->contenido;
+
+        $tema->save();
+
+        return redirect()->route('admin.modulos.show',$tema->modulo_id)->with('tema-update','¡Tema actualizado correctamente!');
     }
 
     /**
@@ -96,8 +101,10 @@ class TemaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tema $tema)
     {
-        //
+        $modulo = $tema->modulo_id;
+        $tema->delete();
+        return redirect()->route('admin.modulos.show',$modulo)->with('tema-delete','¡Tema eliminado correctamente!');
     }
 }

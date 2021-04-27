@@ -1,20 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Alumno;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Modulo;
-use App\Models\Tema;
 
-class ModuloController extends Controller
+class InstructorController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('verified');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +15,8 @@ class ModuloController extends Controller
      */
     public function index()
     {
-        //
+        $instructores = User::role('Instructor')->get();
+        return view('admin.instructores.index',compact('instructores'));
     }
 
     /**
@@ -54,11 +48,7 @@ class ModuloController extends Controller
      */
     public function show($id)
     {
-        $modulo = Modulo::find($id);
-
-        $temas = $modulo->temas;
-
-        return view('alumno.modulos.show', compact('modulo','temas'));
+        //
     }
 
     /**

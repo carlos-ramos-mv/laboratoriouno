@@ -4,17 +4,9 @@ namespace App\Http\Controllers\Alumno;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Modulo;
-use App\Models\Tema;
 
-class ModuloController extends Controller
+class RecursoController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('verified');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -54,11 +46,7 @@ class ModuloController extends Controller
      */
     public function show($id)
     {
-        $modulo = Modulo::find($id);
-
-        $temas = $modulo->temas;
-
-        return view('alumno.modulos.show', compact('modulo','temas'));
+        //
     }
 
     /**

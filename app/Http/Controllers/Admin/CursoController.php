@@ -22,7 +22,6 @@ class CursoController extends Controller
      */
     public function index()
     {
-        
         $cursos = Curso::all();
         return view('admin.cursos.index', compact('cursos'));
     }
@@ -66,13 +65,10 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Curso $curso)
     {
-        $curso = Curso::find($id);
         $modulos = $curso->modulos;
-        $data = ['curso' => $curso, 'modulos' => $modulos];
-
-        return view('admin.cursos.show', compact('data'));
+        return view('admin.cursos.show', compact('curso','modulos'));
     }
 
     /**
@@ -81,9 +77,9 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Curso $curso)
     {
-        //
+        return view('admin.cursos.edit',compact('curso'));
     }
 
     /**
@@ -93,9 +89,14 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Curso $curso)
     {
-        //
+        $curso->nombre = $request->nombre;
+        $curso->descripcion = $request->descripcion;
+
+        $curso->save();
+
+        return redirect()->action([CursoController::class, 'index'])->with('edit', '¡Curso editado correctamente!');
     }
 
     /**
@@ -104,8 +105,10 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Curso $curso)
     {
-        //
+        $curso->delete();
+        // return redirect()->action([CursoController::class, 'index'])->with('delete','¡Curso eliminado correctamente!');
+        return redirect()->route('admin.cursos.index')->with('delete','¡Curso eliminado correctamente!');
     }
 }

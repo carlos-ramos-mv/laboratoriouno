@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Actividad;
 use Illuminate\Http\Request;
 
 class ActividadController extends Controller
@@ -48,7 +49,7 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Actividad $avtividad)
     {
         //
     }
@@ -59,7 +60,7 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Actividad $avtividad)
     {
         //
     }
@@ -71,7 +72,7 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Actividad $avtividad)
     {
         //
     }
@@ -82,7 +83,7 @@ class ActividadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Actividad $avtividad)
     {
         //
     }

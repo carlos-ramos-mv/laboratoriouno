@@ -1,16 +1,16 @@
 @extends('layouts.user-master')
 
-@section('title', 'Curso '.$data['curso']->nombre)
+@section('title', 'Curso '.$curso->nombre)
 
 @section('elementos-sidebar')
     
 <li class="menu-title" key="" style="color: #fff">Módulos</li>
 
 
-@for ($i = 0; $i < sizeof($data['modulos']); $i++)
+@for ($i = 0; $i < sizeof($modulos); $i++)
 
     @php
-        $modulo = $data['modulos'][$i];
+        $modulo = $modulos[$i];
     @endphp
 
     <li>
@@ -20,16 +20,16 @@
         </a>
         <ul class="sub-menu" aria-expanded="false">
 
-            @for ($j = 0; $j < sizeof($data['temas'][$i]); $j++)
+            @for ($j = 0; $j < sizeof($temas[$i]); $j++)
 
                 @php
-                    $tema = $data['temas'][$i][$j];
+                    $tema = $temas[$i][$j];
                 @endphp
                 <li><a href="{{route('alumno.temas.show', $tema->id)}}" key="">{{$tema->titulo}}</a></li>
 
             @endfor
             
-            @if (sizeof($data['temas'][$i]) == 0)
+            @if (sizeof($temas[$i]) == 0)
                 <li><a href="#">No hay temas todavía</a></li>
             @endif
             
@@ -46,7 +46,7 @@
 
     <div class="container">
         <div>
-            <h1>{{$data['curso']->nombre}}</h1>
+            <h1>{{$curso->nombre}}</h1>
         </div>
     </div>
     <div class="container">
@@ -62,7 +62,7 @@
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
 
-                @for ($i = 0; $i < sizeof($data['modulos']); $i++)
+                @for ($i = 0; $i < sizeof($modulos); $i++)
 
                     @php
 
@@ -71,7 +71,7 @@
                             case 0:
                                 $porcentaje = 0;
                                 break;
-                            case sizeof($data['modulos'])-1:
+                            case sizeof($modulos)-1:
                                 $porcentaje = 100;
                                 $outline = "-outline";
                                 break;

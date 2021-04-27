@@ -19,4 +19,9 @@ class Tema extends Model
         return $this->belongsTo(Modulo::class);
     }
     
+    public function recursos()
+    {
+        return $this->hasMany(Recurso::class);
+    }
+
 }

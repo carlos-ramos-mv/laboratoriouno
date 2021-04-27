@@ -8,15 +8,29 @@
 
 @section('content')
 
-<div class="d-flex justify-content-start p-0">
+<div class="container-fluid">
 
-    <div class="col-md-12">
+    <div class="row">
+
+        @if (session('edit'))
+    
+            <div class="alert alert-success" id="alert-success">
+                {{ session('edit') }}
+            </div>
+    
+        @elseif (session('delete'))
+    
+            <div class="alert alert-success" id="alert-success">
+                {{ session('delete') }}
+            </div>
+    
+        @endif
         <div class="d-flex justify-content-between">
             <div>
                 <h1>Todos los cursos</h1>
             </div>
             <div class="m-0 p-0">
-                <a class="btn btn-success me-auto" href="{{route('admin.cursos.create')}}">Agregar Curso</a>
+                <a class="btn btn-success me-auto sm-none" href="{{route('admin.cursos.create')}}">Agregar Curso</a>
             </div>
         </div>
 
@@ -31,7 +45,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nombre</th>
+                                    <th class="md-none">Nombre</th>
                                     <th>Acción</th>
                                 </tr>
                             </thead>
@@ -49,17 +63,22 @@
                                             <td width="10px">
                                                 <div class="d-flex">
                                                     <a class="btn btn-outline-warning btn-md me-2" href="{{route('admin.cursos.edit',$curso->id)}}"><i class="mdi mdi-square-edit-outline"></i></a>
-                                                    <a class="btn btn-outline-danger btn-md" href="{{route('admin.cursos.destroy',$curso->id)}}"><i class="mdi mdi-delete"></i></a>
+                                                    <form action="{{route('admin.cursos.destroy',$curso->id)}}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-outline-danger btn-md" type="submit">
+                                                            <i class="mdi mdi-delete"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
                                         
                                     @endfor
                                 @else
-                                    <tr>No hay ningún curso actualmente</tr>
+                                <tr><div class="alert alert-danger text-center">No hay ningún curso actualmente</div></tr>
                                 @endif
                                 
-
                             </tbody>
                         </table>
                     </div>
@@ -74,5 +93,13 @@
 
 {{-- {{$cursos->links()}} --}}
 
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $('#alert-success').hide(3500);
+        })
+    </script>
 
 @endsection

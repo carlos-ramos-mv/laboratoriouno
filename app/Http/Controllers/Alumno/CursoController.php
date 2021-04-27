@@ -59,20 +59,20 @@ class CursoController extends Controller
 
         $curso = Curso::find($id);
 
-        // $relacion = DB::select('select * from curso_user where curso_id='.$id.'');
-
-        $modulos = Modulo::where('curso_id','=',$id)->get();
+        $modulos = $curso->modulos;
 
         $temas = [];
 
         for ($i=0; $i < sizeof($modulos); $i++) { 
-            $temas[] = Tema::where('modulo_id','=',$modulos[$i]->id)->select('id','titulo','modulo_id')->get();
+            // $temas[] = Tema::where('modulo_id','=',$modulos[$i]->id)->select('id','titulo','modulo_id')->get();
+            $temas[] = $modulos[$i]->temas;
+
         }
         
 
-        $data = ['curso' => $curso, 'modulos' => $modulos, 'temas' => $temas];
+        // $data = ['curso' => $curso, 'modulos' => $modulos, 'temas' => $temas];
 
-        return view('alumno.cursos.show', compact('data'));
+        return view('alumno.cursos.show', compact('curso','modulos','temas'));
     }
 
     /**

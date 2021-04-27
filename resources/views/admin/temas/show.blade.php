@@ -8,61 +8,61 @@
 
 @section('content')
 
-<div class="container d-flex flex-column p-0">
+<div class="container-fluid">
+    <div class="row">
 
-    @if (session('status'))
-
-        <div class="alert alert-success" id="alert-success">
-            {{ session('status') }}
-        </div>
-
-    @elseif (session('tema'))
-
-        <div class="alert alert-success" id="alert-success">
-            {{ session('tema') }}
-        </div>
-
-    @endif
-
-    <div class="d-flex justify-content-between">
-        <div>
-            <h1 >Tema: {{$tema->titulo}}</h1>
-        </div>
-    </div>
-    <div class="container">
-
-        <div class="mt-2">
-
-            {{-- <div id="descripcion">
-                @php
-                    echo $modulo->descripcion;
-                @endphp
-            </div> --}}
-
-            <div class="card" >
-                <div class="card-body">
-
-                    <div class="row">
-                        @php
-                            echo $tema->descripcion;
-                        @endphp
-                    </div>
-                    <div class="row">
-                        
-                        @php
-                            echo $tema->contenido;
-                        @endphp
-                    </div>
-
-                </div>
+        @if (session('status'))
+    
+            <div class="alert alert-success" id="alert-success">
+                {{ session('status') }}
             </div>
-
-            
-            
+    
+        @elseif (session('tema'))
+    
+            <div class="alert alert-success" id="alert-success">
+                {{ session('tema') }}
+            </div>
+    
+        @endif
+    
+        <div class="d-flex justify-content-between">
+            <div>
+                <h1>{{$tema->titulo}}</h1>
+            </div>
+        </div>
+        <div class="container">
+    
+            <div class="mt-2">
+    
+                {{-- <div id="descripcion">
+                    @php
+                        echo $modulo->descripcion;
+                    @endphp
+                </div> --}}
+    
+                <div class="card" >
+                    <div class="card-body">
+    
+                        <div class="">
+                            <h2>Introducción</h2>
+                            @php
+                                echo $tema->descripcion;
+                            @endphp
+                        </div>
+                        <div class="">
+                            <h2>Contenido</h2>
+                            @php
+                                echo $tema->contenido;
+                            @endphp
+                        </div>
+    
+                    </div>
+                </div>   
+            </div>
         </div>
     </div>
-
 </div>
+
 
 @endsection
 

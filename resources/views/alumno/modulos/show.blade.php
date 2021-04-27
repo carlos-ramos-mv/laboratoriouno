@@ -1,12 +1,12 @@
 @extends('layouts.user-master')
 
-@section('title', 'Modulo '.$data['modulo']->nombre)
+@section('title', 'Modulo '.$modulo->nombre)
 
 @section('elementos-sidebar')
     
 <li class="menu-title" key="t-menu" style="color: #fff">Temas</li>
 
-@foreach ($data['temas'] as $tema)
+@foreach ($temas as $tema)
     <li><a href="{{route('alumno.tema.show', $tema->id)}}" key="t-saas">{{$tema->titulo}}</a></li>
 @endforeach
 
@@ -14,11 +14,11 @@
 
 @section('content')
 
-<div class="container d-flex flex-column p-0">
+<div class="container-fluid">
 
-    <div class="container">
+    <div class="row">
         <div>
-            <h3 class="">Módulo: {{$data['modulo']->titulo}}</h3>
+            <h3 class="">Módulo: {{$modulo->titulo}}</h3>
         </div>
     </div>
 
