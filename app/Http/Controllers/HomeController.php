@@ -50,6 +50,11 @@ class HomeController extends Controller
             }
     }
 
+    public function status()
+    {
+        return view('auth.status');
+    }
+
     public function root()
     {
         return view('inicio');

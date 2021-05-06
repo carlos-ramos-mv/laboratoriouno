@@ -66,7 +66,7 @@
     <!-- init js -->
     <script src="{{ URL::asset('assets/js/pages/form-editor.init.js') }}"></script>
 
-    <script>
+    {{-- <script>
 
         tinymce.init({
             selector: 'textarea#descripcion',
@@ -86,6 +86,6 @@
         });
 
 
-    </script>
+    </script> --}}
 
 @endsection

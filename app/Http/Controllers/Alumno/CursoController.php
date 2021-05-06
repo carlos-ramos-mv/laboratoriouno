@@ -8,6 +8,7 @@ use App\Models\Curso;
 use App\Models\Modulo;
 use App\Models\Tema;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CursoController extends Controller
@@ -25,7 +26,26 @@ class CursoController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        $cursos = $user->cursos;
+
+        /* $relacion = DB::select('select * from curso_user where curso_id='.$id.'');
+
+        $relacion = DB::table('curso_user')->select('curso_id')->where('user_id','=',$id)->get();
+
+        $x = json_decode(json_encode($relacion),true);
+
+        $cursos = [];
+
+        for ($i=0; $i < sizeof($x); $i++) {
+            $cursoId = $x[$i]["curso_id"];
+            $curso = Curso::find($cursoId);
+            $cursos[$i] = $curso;
+            
+        } */
+
+        return view('alumno.cursos.index', compact('cursos'));
     }
 
     /**
@@ -55,9 +75,27 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id){
+    public function show(Curso $curso){
 
-        $curso = Curso::find($id);
+        $vista = 'alumno.cursos.preview';
+
+        //Verificar que el alumno esté inscrito al curso
+        $user = Auth::user();
+
+        $cursosUser = $user->cursos;
+
+        for ($i=0; $i < sizeof($cursosUser); $i++) { 
+            if ($cursosUser[$i]->id==$curso->id) {
+                $vista = 'alumno.cursos.show';
+                break;
+            }
+        }
+
+        /* array_search();
+
+        if (count($curso->users->where('user_id','=',Auth::user()->id))>0) {
+            
+        } */
 
         $modulos = $curso->modulos;
 
@@ -68,11 +106,15 @@ class CursoController extends Controller
             $temas[] = $modulos[$i]->temas;
 
         }
-        
 
         // $data = ['curso' => $curso, 'modulos' => $modulos, 'temas' => $temas];
 
-        return view('alumno.cursos.show', compact('curso','modulos','temas'));
+        return view($vista, compact('curso','modulos','temas'));
+    }
+
+    public function preview(Curso $curso)
+    {
+        $modulos = $curso->modulos;
     }
 
     /**

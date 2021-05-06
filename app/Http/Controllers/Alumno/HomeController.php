@@ -19,25 +19,22 @@ class HomeController extends Controller
 
     public function index()
     {
+        $cursosTrue = Curso::where('status','=','t')->get();
 
-        $id = Auth::user()->id;
-
-        $relacion = DB::select('select * from curso_user where curso_id='.$id.'');
-
-        $relacion = DB::table('curso_user')->select('curso_id')->where('user_id','=',$id)->get();
-
-        $x = json_decode(json_encode($relacion),true);
+        //INNER JOIN CURSO EN LOS QUE EL USUARIO ESTA INSCRITO
 
         $cursos = [];
+        $idCursos = [];
 
-        for ($i=0; $i < sizeof($x); $i++) {
-            $cursoId = $x[$i]["curso_id"];
-            $curso = Curso::find($cursoId);
-            $cursos[$i] = $curso;
+        if (sizeof($cursosTrue)>0) {
+            $cursosUser = Auth::user()->cursos;
             
-        }
+            for ($i=0; $i < sizeof($cursosUser); $i++) { 
+                $idCursos[] = $cursosUser[$i]->id;
+            }
 
-        return view('alumno.cursos.index', compact('cursos'));
+        }
+        return view('alumno.home', compact('cursos','cursosUser'));
     }
 
 }

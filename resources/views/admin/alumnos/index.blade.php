@@ -56,7 +56,7 @@
                                             <td><a class="btn" href="{{route('admin.alumnos.show',$alumno->id)}}">{{$nombre}}</a></td>
                                             <td><a class="btn" href="{{route('admin.alumnos.show',$alumno->id)}}">{{$alumno->email}}</a></td>
                                             <td><a class="btn" href="{{route('admin.alumnos.show',$alumno->id)}}">{{$status}}</a></td>
-                                            <td><a class="btn" href="{{route('admin.alumnos.show',$alumno->id)}}"><!-- {{$alumno->created_at}} --> </a></td>
+                                            <td><a class="btn" href="{{route('admin.alumnos.show',$alumno->id)}}">{{$alumno->created_at}}</a></td>
                                             <td width="10px">
                                                 <div class="d-flex">
                                                     <a class="btn btn-outline-warning btn-md me-2" href="{{route('admin.alumnos.edit',$alumno->id)}}"><i class="mdi mdi-square-edit-outline"></i></a>

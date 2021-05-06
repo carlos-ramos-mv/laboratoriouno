@@ -31,14 +31,21 @@ Route::get('/', [InicioController::class, 'root'])->name('root');
 //Index Route
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
+//STATUS
+Route::get('/status', [HomeController::class, 'status'])->name('status');
+
 //ADMIN
-Route::get('/admin', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
-Route::resource('/admin/cursos', App\Http\Controllers\Admin\CursoController::class)->names('admin.cursos');
-Route::resource('/admin/modulos', App\Http\Controllers\Admin\ModuloController::class)->names('admin.modulos');
-Route::resource('/admin/temas', App\Http\Controllers\Admin\TemaController::class)->names('admin.temas');
-Route::resource('/admin/actividades', App\Http\Controllers\Admin\ActividadController::class)->parameters(['actividades' => 'actividad'])->names('admin.actividades');
-Route::resource('/admin/alumnos', App\Http\Controllers\Admin\AlumnoController::class)->names('admin.alumnos');
-Route::resource('/admin/instructores', App\Http\Controllers\Admin\InstructorController::class)->parameters(['instructores' => 'instructor'])->names('admin.instructores');
+Route::middleware(['auth','status'])->group(function ()
+{
+    Route::get('/admin', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+    Route::resource('/admin/cursos', App\Http\Controllers\Admin\CursoController::class)->names('admin.cursos');
+    Route::resource('/admin/modulos', App\Http\Controllers\Admin\ModuloController::class)->names('admin.modulos');
+    Route::resource('/admin/temas', App\Http\Controllers\Admin\TemaController::class)->names('admin.temas');
+    Route::resource('/admin/actividades', App\Http\Controllers\Admin\ActividadController::class)->parameters(['actividades' => 'actividad'])->names('admin.actividades');
+    Route::resource('/admin/alumnos', App\Http\Controllers\Admin\AlumnoController::class)->names('admin.alumnos');
+    Route::resource('/admin/instructores', App\Http\Controllers\Admin\InstructorController::class)->parameters(['instructores' => 'instructor'])->names('admin.instructores');
+});
+
 
 /* //INSTRUCTOR
 Route::get('/instructor', [App\Http\Controllers\Instructor\HomeController::class, 'index'])->name('instructor.home');

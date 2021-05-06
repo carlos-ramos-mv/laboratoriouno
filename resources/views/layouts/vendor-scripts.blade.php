@@ -43,6 +43,7 @@
         });
     });
 </script>
+<script src="https://www.w3schools.com/lib/w3codecolor.js"></script>
 
 @yield('script')
 

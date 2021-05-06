@@ -26,7 +26,7 @@
             <div class="container-fluid p-0">
                 <div class="row g-0">
 
-                    <div class="col-xxl-6">
+                    <div class="">
                         <div class="auth-full-page-content p-md-5 p-4">
                             <div class="w-100">
 
@@ -92,6 +92,14 @@
                                                             </span>
                                                         @enderror
                                                     </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="role" class="form-label">Registrarse como</label>
+                                                    <select id="role" name="role" class="form-select">
+                                                        <option>Alumno</option>
+                                                        <option>Instructor</option>
+                                                    </select>
                                                 </div>
         
                                                 <div class="mt-4 d-grid">
