@@ -18,10 +18,15 @@ class Tema extends Model
     {
         return $this->belongsTo(Modulo::class);
     }
-    
-    public function recursos()
+
+    public function avances()
     {
-        return $this->hasMany(Recurso::class);
+        return $this->morphMany(Avance::class, 'avanzable');
+    }
+
+    public function rates()
+    {
+        return $this->morphMany(Rate::class,'rateable');
     }
 
 }

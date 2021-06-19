@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Puntuacion extends Model
+class Avance extends Model
 {
     use HasFactory;
 
@@ -14,9 +14,8 @@ class Puntuacion extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function actividad()
+    public function avanzable()
     {
-        return $this->belongsTo(Actividad::class);
+        return $this->morphTo();
     }
-    
 }

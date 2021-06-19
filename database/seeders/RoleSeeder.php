@@ -21,38 +21,55 @@ class RoleSeeder extends Seeder
         $role2 = Role::create(['name' => 'Instructor']);
         $role3 = Role::create(['name' => 'Alumno']);
 
-        Permission::create(['name' => 'admin.home'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.actividades.store'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.actividades.index'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.actividades.create'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.actividades.destroy'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.actividades.update'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.actividades.show'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.actividades.edit'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.home'])->syncRoles([$role1,$role2]);//
 
-        Permission::create(['name' => 'admin.cursos.store'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.cursos.index'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.cursos.create'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.cursos.destroy'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.cursos.update'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.cursos.show'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.cursos.edit'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.alumnos.store'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.alumnos.index'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.alumnos.create'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.alumnos.destroy'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.alumnos.update'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.alumnos.show'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.alumnos.edit'])->assignRole([$role1]);
 
-        Permission::create(['name' => 'admin.modulos.store'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.modulos.index'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.modulos.create'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.modulos.destroy'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.modulos.update'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.modulos.show'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.modulos.edit'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.instructores.store'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.instructores.index'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.instructores.create'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.instructores.destroy'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.instructores.update'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.instructores.show'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.instructores.edit'])->assignRole([$role1]);
 
-        Permission::create(['name' => 'admin.temas.store'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.temas.index'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.temas.create'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.temas.destroy'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.temas.update'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.temas.show'])->assignRole([$role1]);
-        Permission::create(['name' => 'admin.temas.edit'])->assignRole([$role1]);
+        Permission::create(['name' => 'admin.cursos.store'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.cursos.index'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.cursos.create'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.cursos.destroy'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.cursos.update'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.cursos.show'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.cursos.edit'])->syncRoles([$role1,$role2]);//
+
+        Permission::create(['name' => 'admin.modulos.store'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.modulos.index'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.modulos.create'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.modulos.destroy'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.modulos.update'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.modulos.show'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.modulos.edit'])->syncRoles([$role1,$role2]);//
+
+        Permission::create(['name' => 'admin.temas.store'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.temas.index'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.temas.create'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.temas.destroy'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.temas.update'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.temas.show'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.temas.edit'])->syncRoles([$role1,$role2]);//
+
+        Permission::create(['name' => 'admin.actividades.store'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.actividades.index'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.actividades.create'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.actividades.destroy'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.actividades.update'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.actividades.show'])->syncRoles([$role1,$role2]);//
+        Permission::create(['name' => 'admin.actividades.edit'])->syncRoles([$role1,$role2]);//
 
         Permission::create(['name' => 'alumno.home'])->assignRole([$role3]);
         Permission::create(['name' => 'alumno.cursos.show'])->assignRole([$role3]);

@@ -9,7 +9,6 @@
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/logos/logo-enes-oro.png') }}">
-    @livewireStyles
     @include('layouts.head-css')
 
 </head>
@@ -48,7 +47,6 @@
     <!-- END layout-wrapper -->
 
     <!-- JAVASCRIPT -->
-    @livewireScripts
     @include('layouts.vendor-scripts')
 </body>
 

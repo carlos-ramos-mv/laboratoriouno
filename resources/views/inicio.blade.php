@@ -10,6 +10,7 @@
     <link href={{ asset('assets/css/header-particle/core.min.css') }} rel="stylesheet">
     <link href={{ asset('assets/css/header-particle/thesaas.min.css') }} rel="stylesheet">
     <link href={{ asset('assets/css/header-particle/style.css') }} rel="stylesheet">
+    <link href={{ asset('assets/css/custom.css') }} rel="stylesheet">
 @endsection
     
 @section('favicons')
@@ -68,8 +69,8 @@
         <div class="row h-full">
           <div class="col-12 col-lg-8 offset-lg-2 align-self-center">
 
-            <h1 class="display-1 hidden-sm-down" style="font-size:2.5rem">Laboratorio virtual para la enseñanza de matemáticas y programación</h1>
-            <h1 class="display-4 hidden-md-up" style="font-size:2.5rem">Laboratorio virtual para la enseñanza de matemáticas y programación</h1>
+            <h1 class="display-1 hidden-sm-down" style="font-size: 2.5rem">Laboratorio virtual para la enseñanza de matemáticas y programación</h1>
+            <h1 class="display-1 hidden-md-up" style="font-size: 2.5rem">Laboratorio virtual para la enseñanza de matemáticas y programación</h1>
             <br>
             {{-- 
             <p class="fs-20 w-400 mx-auto hidden-sm-down">Is an elegant, modern and fully customizable SaaS and WebApp template</p>

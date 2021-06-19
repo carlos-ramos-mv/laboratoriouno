@@ -44,8 +44,9 @@ class TemaController extends Controller
         $tema = new Tema();
 
         $tema->titulo = $request->titulo;
+        $tema->breve_descripcion = $request->breveDescripcion;
         $tema->contenido = $request->contenido;
-        $tema->descripcion = $request->descripcion;
+        $tema->introduccion = $request->introduccion;
         $tema->modulo_id = $request->modulo;
 
         $tema->save();
@@ -87,7 +88,8 @@ class TemaController extends Controller
     public function update(Request $request, Tema $tema)
     {
         $tema->titulo = $request->titulo;
-        $tema->descripcion = $request->descripcion;
+        $tema->breve_descripcion = $request->breveDescripcion;
+        $tema->introduccion = $request->introduccion;
         $tema->contenido = $request->contenido;
 
         $tema->save();

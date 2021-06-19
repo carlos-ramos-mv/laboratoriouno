@@ -17,7 +17,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class=""><h1 class="">Agregar un nuevo curso</h1></div>
+        <div class=""><h1 class="display-1">Agregar un nuevo curso</h1></div>
         <div class="container">
             <div class="mt-3 bg-white p-3">
                 <form class="needs-validation" novalidate method="POST" action="{{route('admin.cursos.store')}}">
@@ -29,12 +29,17 @@
                                 <input id="nombre" name="nombre" class="form-control" type="text" placeholder="Escriba el nombre" required>
                                 <x-feedback></x-feedback>
                             </div>
-    
+
                             <div class="mb-3">
-                                <label class="form-label">Descripción del curso</label>
-                                <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
-                                <x-feedback></x-feedback>
+                                <label class="form-label">Breve descripción</label>
+                                <textarea class="form-control" 
+                                placeholder="Escriba una breve descripcion para la vista preeliminar del curso (max. 100 caracteres)" 
+                                name="breveDescripcion" 
+                                id="breveDescripcion" 
+                                required
+                                maxlength="100"></textarea>
                             </div>
+
                             {{-- 
                             <div class="mb-3">
     
@@ -54,10 +59,18 @@
                                 </div>
     
                             </div> --}}
-    
-                            <x-agregar-cancelar></x-agregar-cancelar>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label class="form-label">Descripción extendida del curso</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+                                <x-feedback></x-feedback>
+                            </div>
+                        </div>
+                    </div>
+                    <x-agregar-cancelar></x-agregar-cancelar>
                 </form>
             </div>
         </div>
@@ -82,7 +95,7 @@
         tinymce.init({
             selector: 'textarea#descripcion',
             content_css: 'writer',
-            height: 400,
+            height: 350,
             menubar: false,
             statusbar: false,
             language: 'es_MX'

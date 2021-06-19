@@ -10,36 +10,10 @@
 
 <div class="container-fluid">
     <div class="row">
-
-        @if (session('status'))
-    
-            <div class="alert alert-success" id="alert-success">
-                {{ session('status') }}
-            </div>
-    
-        @elseif (session('tema-store'))
-    
-            <div class="alert alert-success" id="alert-success">
-                {{ session('tema-store') }}
-            </div>
-    
-        @elseif (session('tema-update'))
-    
-            <div class="alert alert-success" id="alert-success">
-                {{ session('tema-update') }}
-            </div>
-    
-        @elseif (session('tema-delete'))
-    
-            <div class="alert alert-success" id="alert-success">
-                {{ session('tema-delete') }}
-            </div>
-    
-        @endif
     
         <div class="d-flex justify-content-between">
             <div>
-                <h1 >Módulo: {{$modulo->titulo}}</h1>
+                <h1 class="display-1">Módulo: {{$modulo->titulo}}</h1>
             </div>
             <form action="{{route('admin.temas.create')}}" method="GET">
                 <div class="m-0 p-0">
@@ -52,6 +26,9 @@
             <div class="mb-3 fs-5">
                 <p>Temas</p>
             </div>
+
+            @if (sizeof($temas) > 0)
+                
             <x-data-table>
                 <table class="table align-middle mb-0">
 
@@ -63,38 +40,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (sizeof($temas) > 0)
-                            @for ($i = 0; $i < sizeof($temas); $i++)
 
-                                @php
-                                    $tema = $temas[$i];
-                                @endphp
+                        @for ($i = 0; $i < sizeof($temas); $i++)
+
+                            @php
+                                $tema = $temas[$i];
+                            @endphp
+                        
+                            <tr>
+                                <th scope="row"><a class="btn" href="{{route('admin.temas.show',$tema->id)}}">{{$i+1}}</a></th>
+                                <td><a class="btn" href="{{route('admin.temas.show',$tema->id)}}">{{$tema->titulo}}</a></td>
+                                <td width="10px">
+                                    <div class="d-flex">
+                                        <a class="btn btn-outline-warning btn-md me-2" href="{{route('admin.temas.edit',$tema->id)}}"><i class="mdi mdi-square-edit-outline"></i></a>
+                                        <form class="delete-form" action="{{route('admin.temas.destroy',$tema->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-outline-danger btn-md" type="submit">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                             
-                                <tr>
-                                    <th scope="row"><a class="btn" href="{{route('admin.temas.show',$tema->id)}}">{{$i+1}}</a></th>
-                                    <td><a class="btn" href="{{route('admin.temas.show',$tema->id)}}">{{$tema->titulo}}</a></td>
-                                    <td width="10px">
-                                        <div class="d-flex">
-                                            <a class="btn btn-outline-warning btn-md me-2" href="{{route('admin.temas.edit',$tema->id)}}"><i class="mdi mdi-square-edit-outline"></i></a>
-                                            <form action="{{route('admin.temas.destroy',$tema->id)}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-outline-danger btn-md" type="submit">
-                                                    <i class="mdi mdi-delete"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                            @endfor
-                        @else
-                            <tr><div class="alert alert-danger">No hay ningún tema actualmente</div></tr>
-                        @endif
+                        @endfor
                         
                     </tbody>
                 </table>
             </x-data-table>
+
+            @else
+
+            <div class="alert alert-danger text-center">No hay ningún tema actualmente</div>
+
+            @endif
+
+
         </div>
     </div>
 </div>
@@ -104,10 +86,76 @@
 @endsection
 
 @section('script')
+
+@if (session('status'))
+    
     <script>
-        $(document).ready(function(){
-            $('#alert-success').hide(3500);
-        })
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('status')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
     </script>
+
+@elseif (session('tema-store'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('tema-store')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@elseif (session('tema-update'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('tema-update')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@elseif (session('tema-delete'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('tema-delete')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@endif
+
+<script>
+    $('.delete-form').submit(function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: "¿Seguro que quieres eliminar este elemento?",
+            text: "¡Esta acción no se puede revertir!",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonColor: "#74788d",
+            confirmButtonColor: "#f46a6a",
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.value) {
+                // Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                this.submit();
+            }
+        });
+    });
+</script>
 
 @endsection

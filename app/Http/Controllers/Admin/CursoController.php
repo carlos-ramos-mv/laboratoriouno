@@ -7,6 +7,7 @@ use App\Models\Curso;
 use App\Models\Tema;
 use App\Models\Modulo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CursoController extends Controller
@@ -48,6 +49,7 @@ class CursoController extends Controller
         $curso = new Curso();
 
         $curso->nombre = $request->nombre;
+        $curso->breve_descripcion = $request->breveDescripcion;
         $curso->descripcion = $request->descripcion;
 
         // $imagen = $request->file('file')->store('public/imagenes/cursos');
@@ -68,6 +70,9 @@ class CursoController extends Controller
     public function show(Curso $curso)
     {
         $modulos = $curso->modulos;
+        foreach ($modulos as $modulo) {
+            $modulo->avances()->where('user_id',Auth::user()->id)->get();
+        }
         return view('admin.cursos.show', compact('curso','modulos'));
     }
 
@@ -91,8 +96,14 @@ class CursoController extends Controller
      */
     public function update(Request $request, Curso $curso)
     {
+        $status = false;
+        if (isset($request->status)) {
+            $status = true;
+        }
         $curso->nombre = $request->nombre;
+        $curso->breve_descripcion = $request->breveDescripcion;
         $curso->descripcion = $request->descripcion;
+        $curso->status = $status;
 
         $curso->save();
 

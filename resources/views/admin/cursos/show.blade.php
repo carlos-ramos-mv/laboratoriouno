@@ -11,36 +11,10 @@
     <div class="container-fluid">
         <div class="row">
 
-            @if (session('status'))
-
-                <div class="alert alert-success" id="alert-success">
-                    {{ session('status') }}
-                </div>
-
-            @elseif (session('modulo-store'))
-
-                <div class="alert alert-success" id="alert-success">
-                    {{ session('modulo-store') }}
-                </div>
-
-            @elseif (session('modulo-update'))
-
-                <div class="alert alert-success" id="alert-success">
-                    {{ session('modulo-update') }}
-                </div>
-
-            @elseif (session('modulo-delete'))
-
-                <div class="alert alert-success" id="alert-success">
-                    {{ session('modulo-delete') }}
-                </div>
-
-            @endif
-
             <div class="d-flex justify-content-between">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h1>Curso: {{ $curso->nombre }}</h1>
+                        <h1 class="display-1">Curso: {{ $curso->nombre }}</h1>
                     </div>
                     <div>
                         <a class="btn btn-gray btn-lg" href="{{ route('admin.cursos.edit', $curso->id) }}"><i
@@ -60,6 +34,9 @@
                 <div class="mb-3 fs-5">
                     <p>Módulos</p>
                 </div>
+
+                @if (sizeof($modulos) > 0)
+
                 <x-data-table>
                     <table class="table align-middle mb-0">
 
@@ -71,80 +48,127 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (sizeof($modulos) > 0)
-                                @for ($i = 0; $i < sizeof($modulos); $i++)
+                            
+                            @for ($i = 0; $i < sizeof($modulos); $i++)
 
-                                    @php
-                                        $modulo = $modulos[$i];
-                                    @endphp
+                                @php
+                                    $modulo = $modulos[$i];
+                                @endphp
 
-                                    <tr>
-                                        <th scope="row"><a class="btn"
-                                                href="{{ route('admin.modulos.show', $modulo->id) }}">{{ $modulo->numero }}</a>
-                                        </th>
-                                        <td><a class="btn"
-                                                href="{{ route('admin.modulos.show', $modulo->id) }}">{{ $modulo->titulo }}</a>
-                                        </td>
-                                        <td width="10px">
-                                            <div class="d-flex">
-                                                <a class="btn btn-outline-warning btn-md me-2"
-                                                    href="{{ route('admin.modulos.edit', $modulo->id) }}"><i
-                                                        class="mdi mdi-square-edit-outline"></i></a>
-                                                <form action="{{ route('admin.modulos.destroy', $modulo->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-outline-danger btn-md" type="submit">
-                                                        <i class="mdi mdi-delete"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                @endfor
-                            @else
                                 <tr>
-                                    <div class="alert alert-danger text-center">No hay ningún módulo actualmente</div>
+                                    <th scope="row"><a class="btn"
+                                            href="{{ route('admin.modulos.show', $modulo->id) }}">{{ $modulo->numero }}</a>
+                                    </th>
+                                    <td><a class="btn"
+                                            href="{{ route('admin.modulos.show', $modulo->id) }}">{{ $modulo->titulo }}</a>
+                                    </td>
+                                    <td width="10px">
+                                        <div class="d-flex">
+                                            <a class="btn btn-outline-warning btn-md me-2"
+                                                href="{{ route('admin.modulos.edit', $modulo->id) }}"><i
+                                                    class="mdi mdi-square-edit-outline"></i></a>
+                                            <form class="delete-form" action="{{ route('admin.modulos.destroy', $modulo->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-outline-danger btn-md" type="submit">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
                                 </tr>
-                            @endif
+
+                            @endfor
 
                         </tbody>
                     </table>
                 </x-data-table>
+
+                @else
+
+                <div class="alert alert-danger text-center">No hay ningún módulo actualmente</div>
+                    
+                @endif
+
             </div>
 
         </div>
     </div>
-
-
-    {{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Aviso</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 @endsection
 
 @section('script')
-    <script>
-        $(document).ready(function() {
-            $('#alert-success').hide(3500);
-        })
 
+@if (session('status'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('status')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
     </script>
+
+@elseif (session('modulo-store'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('modulo-store')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@elseif (session('modulo-update'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('modulo-update')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@elseif (session('modulo-delete'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('modulo-delete')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@endif
+
+<script>
+    $('.delete-form').submit(function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: "¿Seguro que quieres eliminar este elemento?",
+            text: "¡Esta acción no se puede revertir!",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonColor: "#74788d",
+            confirmButtonColor: "#f46a6a",
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.value) {
+                // Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                this.submit();
+            }
+        });
+    });
+</script>
 
 @endsection

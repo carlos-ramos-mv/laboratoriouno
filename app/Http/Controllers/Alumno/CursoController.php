@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Alumno;
 
 use App\Http\Controllers\Controller;
+use App\Models\Avance;
 use Illuminate\Http\Request;
 use App\Models\Curso;
-use App\Models\Modulo;
-use App\Models\Tema;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class CursoController extends Controller
 {
@@ -27,23 +24,7 @@ class CursoController extends Controller
     public function index()
     {
         $user = Auth::user();
-
         $cursos = $user->cursos;
-
-        /* $relacion = DB::select('select * from curso_user where curso_id='.$id.'');
-
-        $relacion = DB::table('curso_user')->select('curso_id')->where('user_id','=',$id)->get();
-
-        $x = json_decode(json_encode($relacion),true);
-
-        $cursos = [];
-
-        for ($i=0; $i < sizeof($x); $i++) {
-            $cursoId = $x[$i]["curso_id"];
-            $curso = Curso::find($cursoId);
-            $cursos[$i] = $curso;
-            
-        } */
 
         return view('alumno.cursos.index', compact('cursos'));
     }
@@ -75,46 +56,32 @@ class CursoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Curso $curso){
-
-        $vista = 'alumno.cursos.preview';
-
-        //Verificar que el alumno esté inscrito al curso
+    public function show(Curso $curso)
+    {
         $user = Auth::user();
+        $vista = 'alumno.cursos.preview';
+        $modulos = $curso->modulos;
+        $temas = [];
 
-        $cursosUser = $user->cursos;
+        for ($i = 0; $i < sizeof($modulos); $i++) {
+            $temas[] = $modulos[$i]->temas;
+        }
 
-        for ($i=0; $i < sizeof($cursosUser); $i++) { 
-            if ($cursosUser[$i]->id==$curso->id) {
-                $vista = 'alumno.cursos.show';
-                break;
+        if (sizeof($user->cursos()->where('curso_id', '=', $curso->id)->get()) == 1) {
+            $vista = 'alumno.cursos.show';
+            $cursoCollection = $user->cursos()->where('curso_id',$curso->id)->get();
+            $curso = $cursoCollection[0];
+            foreach ($modulos as $modulo) {
+                $modulo->avances()->select('progreso','completado')->where('user_id',$user->id)->get();
+            }
+            foreach ($temas as $temasAgrup) {
+                foreach ($temasAgrup as $tema) {
+                    $tema->avances()->select('progreso','completado')->where('user_id',$user->id)->get();
+                }
             }
         }
 
-        /* array_search();
-
-        if (count($curso->users->where('user_id','=',Auth::user()->id))>0) {
-            
-        } */
-
-        $modulos = $curso->modulos;
-
-        $temas = [];
-
-        for ($i=0; $i < sizeof($modulos); $i++) { 
-            // $temas[] = Tema::where('modulo_id','=',$modulos[$i]->id)->select('id','titulo','modulo_id')->get();
-            $temas[] = $modulos[$i]->temas;
-
-        }
-
-        // $data = ['curso' => $curso, 'modulos' => $modulos, 'temas' => $temas];
-
-        return view($vista, compact('curso','modulos','temas'));
-    }
-
-    public function preview(Curso $curso)
-    {
-        $modulos = $curso->modulos;
+        return view($vista, compact('curso', 'modulos', 'temas'));
     }
 
     /**
@@ -149,5 +116,60 @@ class CursoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function inscribirse(Curso $curso)
+    {
+        Auth::user()->cursos()->attach($curso,['progreso'=>0,'completado'=>false]);
+        $this->crearAvances($curso);
+        return redirect()->action([CursoController::class,'show',],$curso->id)->with('inscrito','¡Ahora estás inscrito en este curso!');
+    }
+    
+    //Metodo que crea los avances correspondientes al usuario
+    //Se crean avances para los módulos, temas y actividades pertenecientes al curso
+    private function crearAvances(Curso $curso)               
+    {
+
+        $avance = new Avance();
+        $uid= Auth::user()->id;
+
+        if (sizeof($curso->modulos)>0) {
+            $modulos = $curso->modulos()->select('id')->get();
+            foreach ($modulos as $modulo) { 
+                if (sizeof($modulo->temas)>0) {
+                    $temas = $modulo->temas()->select('id')->get();
+                    foreach ($temas as $tema) { 
+                        if (sizeof($tema->actividades)>0) {
+                            $actividades = $tema->actividades()->select('id')->get();
+                            foreach ($actividades as $actividad) { 
+                                $avance->avanzable_id = $actividad->id;
+                                $avance->avanzable_type = 'App\Models\Actividad';
+                                $avance->user_id = $uid;
+                                $avance->progreso = 0;
+
+                                $avance->save();
+                                $avance = new Avance();
+                            }
+                        }
+                        $avance->avanzable_id = $tema->id;
+                        $avance->avanzable_type = 'App\Models\Tema';
+                        $avance->user_id = $uid;
+                        $avance->progreso = 0;
+
+                        $avance->save();
+                        $avance = new Avance();
+                    }
+                }
+                $avance->avanzable_id = $modulo->id;
+                $avance->avanzable_type = 'App\Models\Modulo';
+                $avance->user_id = $uid;
+                $avance->progreso = 0;
+                $avance->completado = false;
+
+                $avance->save();
+                $avance = new Avance();
+            }
+        }
+
     }
 }

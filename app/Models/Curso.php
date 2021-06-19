@@ -16,7 +16,12 @@ class Curso extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('progreso','completado','puntuacion');
+    }
+
+    public function rates()
+    {
+        return $this->morphMany(Rate::class,'rateable');
     }
 
 }

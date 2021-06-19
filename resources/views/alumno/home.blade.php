@@ -2,6 +2,11 @@
 
 @section('title', 'Página principal')
 
+@section('css')
+    <!-- Bootstrap Rating css -->
+    <link href="{{ URL::asset('/assets/libs/bootstrap-rating/bootstrap-rating.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('elementos-sidebar')
 
 
@@ -13,7 +18,7 @@
     <div class="row">
         <div class="mb-2">
             <div>
-                <h1>Cursos en los que estás inscrito</h1>
+                <h1 class="display-1">Tus cursos</h1>
             </div>
         </div>
     
@@ -28,25 +33,21 @@
             @else
                 
             @foreach ($cursosUser as $curso)
-                
-            <div class="col-sm-5 col-md-3">
-                <div class="card shadow">
-                    <img class="card-img-top img-fluid" src="{{ URL::asset('/assets/images/small/img-1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title mt-0">{{$curso->nombre}}</h4>
-                        <p class="card-text">Tu progreso:</p>
-                        <div class="progress mb-3">
-                            <div class="progress-bar" 
-                            role="progressbar" 
-                            style="width: 25%" 
-                            aria-valuenow="25" 
-                            aria-valuemin="0" 
-                            aria-valuemax="100">25%</div>
-                        </div>
-                        <a href="{{route('alumno.cursos.show', $curso->id)}}" class="btn btn-primary waves-effect waves-light">Ir al curso</a>
-                    </div>
-                </div>
-            </div>
+
+            @php
+                $rate = 3.6;
+                $img = '/assets/images/small/img-4.jpg';
+            @endphp
+
+            <x-card-curso :rate="$rate" :img="$img">
+                <x-slot name="titulo">{{$curso->nombre}}</x-slot>
+                <x-slot name="texto">{{$curso->breve_descripcion}}</x-slot>
+                <x-slot name="button">
+                    <a href="{{route('alumno.cursos.show', $curso->id)}}" class="btn btn-success waves-effect waves-light">
+                        Ir al curso
+                    </a>
+                </x-slot>
+            </x-card-curso>
     
             @endforeach
     
@@ -58,7 +59,7 @@
     <div class="row">
         <div class="mb-2">
             <div>
-                <h1>Cursos disponibles para ti</h1>
+                <h1 class="display-1">Cursos disponibles para ti</h1>
             </div>
         </div>        
         <div class="p-3">
@@ -71,25 +72,21 @@
             @else
                 
             @foreach ($cursos as $curso)
-                
-            <div class="col-sm-5 col-md-3">
-                <div class="card shadow">
-                    <img class="card-img-top img-fluid" src="{{ URL::asset('/assets/images/small/img-1.jpg') }}" alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title mt-0">{{$curso->nombre}}</h4>
-                        <p class="card-text">Tu progreso:</p>
-                        <div class="progress mb-3">
-                            <div class="progress-bar" 
-                            role="progressbar" 
-                            style="width: 25%" 
-                            aria-valuenow="25" 
-                            aria-valuemin="0" 
-                            aria-valuemax="100">25%</div>
-                        </div>
-                        <a href="{{route('alumno.cursos.show', $curso->id)}}" class="btn btn-primary waves-effect waves-light">Ir al curso</a>
-                    </div>
-                </div>
-            </div>
+
+            @php
+                $rate = 3.6;
+                $img = '/assets/images/small/img-4.jpg';
+            @endphp
+
+            <x-card-curso :rate="$rate" :img="$img">
+                <x-slot name="titulo">{{$curso->nombre}}</x-slot>
+                <x-slot name="texto">{{$curso->breve_descripcion}}</x-slot>
+                <x-slot name="button">
+                    <a href="{{route('alumno.cursos.show', $curso->id)}}" class="btn btn-success waves-effect waves-light">
+                        Ver curso
+                    </a>
+                </x-slot>
+            </x-card-curso>
     
             @endforeach
     
@@ -100,4 +97,11 @@
 </div>
 
 
+@endsection
+
+@section('script')
+    <!-- Bootstrap rating js -->
+    <script src="{{ URL::asset('/assets/libs/bootstrap-rating/bootstrap-rating.min.js') }}"></script>
+
+    <script src="{{ URL::asset('/assets/js/pages/rating-init.js') }}"></script>
 @endsection

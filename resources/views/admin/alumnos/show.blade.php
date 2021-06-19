@@ -1,6 +1,6 @@
 @extends('layouts.user-master')
 
-@section('title', 'Curso '.$data['curso']->nombre)
+@section('title', 'Información de alumno')
 
 @section('elementos-sidebar')
     
@@ -10,7 +10,8 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="container d-flex flex-column p-0">
+        <h1 class="display-1">Información de alumno</h1>
+        <!-- <div class="container d-flex flex-column p-0">
 
             @if (session('status'))
         
@@ -28,7 +29,7 @@
         
             <div class="d-flex justify-content-between">
                 <div>
-                    <h1 >Curso: {{$data['curso']->nombre}}</h1>
+                    <h1 class="display-1">Curso: {{$data['curso']->nombre}}</h1>
                 </div>
                 <form action="{{route('admin.modulos.create')}}" method="GET">
                     <div class="m-0 p-0">
@@ -100,7 +101,7 @@
                 </div>
             </div>
         
-        </div>
+        </div> -->
     </div>
 </div>
 

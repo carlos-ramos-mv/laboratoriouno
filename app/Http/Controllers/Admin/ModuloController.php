@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Tema;
 use App\Models\Modulo;
+use App\Models\User;
+use App\Traits\CrusoTrait;
+use Illuminate\Support\Facades\Auth;
 
 class ModuloController extends Controller
 {
+
+    use CrusoTrait;
 
     public function __construct()
     {
@@ -31,6 +35,7 @@ class ModuloController extends Controller
      */
     public function create()
     {
+        
         return view('admin.modulos.create');
     }
 
@@ -46,6 +51,7 @@ class ModuloController extends Controller
 
         $modulo->numero = $request->numero;
         $modulo->titulo = $request->titulo;
+        $modulo->breve_descripcion = $request->breveDescripcion;
         $modulo->descripcion = $request->descripcion;
         $modulo->curso_id = $request->curso;
 
@@ -53,7 +59,30 @@ class ModuloController extends Controller
         // $url = Storage::url($imagen);
         $modulo->save();
 
-        $modulo = Modulo::latest('id')->first();
+        /* 
+         *  Si el curso está publicado habrá que actualizar los 
+         *  porcentajes de avance y calificaciones de los alumnos 
+         *  inscritos.
+         */
+        if ($modulo->curso->status) {
+            //Usuarios del curso
+            $usersCurso = $modulo->curso->users()->select('id')->get();
+            //Usuarios que son alumnos
+            $usersRole = User::role('Alumno')->select('id')->get();
+            //Limpiar propiedad 'pivot' de los usuarios del curso
+            foreach ($usersCurso as $user) {
+                unset($user->pivot);
+            }
+            //Comparar las colecciones para obtener los usuarios que pertenezcan al
+            //curso y que además sean alumnos.
+            $users = $usersCurso->intersect($usersRole);
+
+            //Se actualiza cada avance de curso de cada usuario que es un alumno del curso
+            foreach ($users as $user) {
+                $this->actualizarPorcentajeCurso($modulo->curso, Auth::user()->id);
+            }
+            
+        } 
 
         return redirect()->action([CursoController::class, 'show'], $request->curso)->with('modulo-store', '¡Módulo agregado correctamente!');
     }
@@ -92,11 +121,12 @@ class ModuloController extends Controller
     {
         $modulo->numero = $request->numero;
         $modulo->titulo = $request->titulo;
+        $modulo->breve_descripcion = $request->breveDescripcion;
         $modulo->descripcion = $request->descripcion;
 
         $modulo->save();
 
-        return redirect()->route('admin.cursos.show',$modulo->curso_id)->with('modulo-update','¡Módulo actualizado correctamente!');
+        return redirect()->action([CursoController::class, 'show'], $modulo->curso_id)->with('modulo-update','¡Módulo actualizado correctamente!');
     }
 
     /**
@@ -111,4 +141,5 @@ class ModuloController extends Controller
         $modulo->delete();
         return redirect()->route('admin.cursos.show',$curso)->with('modulo-delete','¡Módulo eliminado correctamente!');
     }
+
 }

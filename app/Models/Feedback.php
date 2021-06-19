@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Recurso extends Model
+class Feedback extends Model
 {
     use HasFactory;
 
-    public function tema()
+    public function rate()
     {
-        return $this->belongsTo(Tema::class);
+        return $this->belongsTo(Rate::class);
     }
-
 }

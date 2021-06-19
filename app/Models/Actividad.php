@@ -12,14 +12,13 @@ class Actividad extends Model
 
     use HasFactory;
 
-    public function puntuaciones()
+    public function avances()
     {
-        return $this->hasMany(Puntuacion::class);
+        return $this->morphMany(Avance::class, 'avanzable');
     }
 
     public function tema()
     {
         return $this->belongsTo(Tema::class);
     }
-
 }

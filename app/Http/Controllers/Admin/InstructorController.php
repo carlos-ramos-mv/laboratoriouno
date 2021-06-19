@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Instructor;
 use Illuminate\Http\Request;
 
 class InstructorController extends Controller
@@ -57,9 +58,9 @@ class InstructorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $instructor)
     {
-        //
+        return view('admin.instructores.edit',compact('instructor'));
     }
 
     /**
@@ -69,9 +70,17 @@ class InstructorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,User $instructor)
     {
-        //
+
+        $instructor->nombre = $request->nombre;
+        $instructor->ap_pat = $request->apPat;
+        $instructor->ap_mat = $request->apMat;
+        $instructor->status = $request->status;
+
+        $instructor->save();
+
+        return redirect()->action([InstructorController::class, 'index'])->with('edit', '¡Instructor editado correctamente!');
     }
 
     /**
@@ -83,5 +92,11 @@ class InstructorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function activar()
+    {
+        $instructores = User::role('Instructor')->get();
+        return view('admin.instructores.activar',compact('instructores'));
     }
 }

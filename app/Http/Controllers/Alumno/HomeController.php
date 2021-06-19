@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Alumno;
 
 use App\Http\Controllers\Controller;
 use App\Models\Curso;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -19,22 +17,27 @@ class HomeController extends Controller
 
     public function index()
     {
-        $cursosTrue = Curso::where('status','=','t')->get();
-
-        //INNER JOIN CURSO EN LOS QUE EL USUARIO ESTA INSCRITO
 
         $cursos = [];
-        $idCursos = [];
+        $cursosUser = [];
 
-        if (sizeof($cursosTrue)>0) {
-            $cursosUser = Auth::user()->cursos;
-            
-            for ($i=0; $i < sizeof($cursosUser); $i++) { 
-                $idCursos[] = $cursosUser[$i]->id;
+        if (sizeof($c = Curso::where('status', '=', 't')->get()) > 0) {
+
+            $cursosUser = Auth::user()->cursos()->where('status', '=', 't')->get();
+            $cursos = $c;
+
+            if (sizeof($cursosUser) > 0) {
+                $cursos = [];
+                for ($i = 0; $i < sizeof($c); $i++) {
+                    for ($j = 0; $j < sizeof($cursosUser); $j++) {
+                        if ($c[$i]->id != $cursosUser[$j]->id) {
+                            $cursos[] = $c[$i];
+                            break;
+                        }
+                    }
+                }
             }
-
         }
-        return view('alumno.home', compact('cursos','cursosUser'));
+        return view('alumno.home', compact('cursos', 'cursosUser'));
     }
-
 }

@@ -27,7 +27,7 @@
     
         <div class="d-flex justify-content-between">
             <div>
-                <h1>{{$tema->titulo}}</h1>
+                <h1 class="display-1">{{$tema->titulo}}</h1>
             </div>
         </div>
         <div class="container">

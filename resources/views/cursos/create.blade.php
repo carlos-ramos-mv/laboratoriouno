@@ -19,7 +19,7 @@
 
 <div class="container p-0" style="border: solid 2px red">
 
-    <div class=""><h1 class="">Agregar un nuevo curso</h1></div>
+    <div class=""><h1 class="display-1">Agregar un nuevo curso</h1></div>
     <div class="mt-3 bg-white p-3">
         <form class="needs-validation" action="{{route('curso.add')}}" method="POST" novalidate>
             @csrf

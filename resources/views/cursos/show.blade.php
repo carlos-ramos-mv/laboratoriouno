@@ -46,7 +46,7 @@
 
     <div class="container">
         <div>
-            <h1>{{$data['curso']->nombre}}</h1>
+            <h1 class="display-1">{{$data['curso']->nombre}}</h1>
         </div>
         <div>
             <h3 class="">por: Dr. Ulises</h3>
