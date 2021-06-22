@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Modulo;
 use App\Models\User;
-use App\Traits\CrusoTrait;
+use App\Traits\CursoTrait;
 use Illuminate\Support\Facades\Auth;
 
 class ModuloController extends Controller
 {
 
-    use CrusoTrait;
+    use CursoTrait;
 
     public function __construct()
     {

@@ -9,7 +9,7 @@ use App\Models\Modulo;
  */
 trait ModuloTrait
 {
-    public function actualizarPorcentajeModulo(Modulo $modulo, $user_id){ 
+    public function actualizarProgresoModulo(Modulo $modulo, $user_id){ 
         
         $temasTotal = sizeof($modulo->temas);
         if ($temasTotal>0) {
@@ -38,7 +38,7 @@ trait ModuloTrait
 
     public function actualizarPuntuacionModulo(Modulo $modulo, $user_id){ 
         
-        $temas = $modulo->temas()->select('id');
+        $temas = $modulo->temas()->select('id')->get();
         if (sizeof($temas)>0) {
             $temasCalificados = 0;
             $puntuacionTotal = 0;

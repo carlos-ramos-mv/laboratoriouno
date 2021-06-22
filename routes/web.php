@@ -60,6 +60,7 @@ Route::middleware(['auth','status'])->group(function ()
 //ALUMNO
 Route::get('/alumno', [App\Http\Controllers\Alumno\HomeController::class, 'index'])->name('alumno.home');
 Route::get('/alumno/cursos/inscribirse/{curso}', [App\Http\Controllers\Alumno\CursoController::class, 'inscribirse'])->name('alumno.cursos.inscribirse');
+Route::get('/alumno/cursos/finalizado/{curso}', [App\Http\Controllers\Alumno\CursoController::class, 'finalizado'])->name('alumno.cursos.finalizado');
 Route::get('/alumno/cursos/{curso}', [App\Http\Controllers\Alumno\CursoController::class, 'show'])->name('alumno.cursos.show');
 Route::get('/alumno/cursos', [App\Http\Controllers\Alumno\CursoController::class, 'index'])->name('alumno.cursos.index');
 Route::get('/alumno/modulos/{modulo}', [App\Http\Controllers\Alumno\ModuloController::class, 'show'])->name('alumno.modulos.show');

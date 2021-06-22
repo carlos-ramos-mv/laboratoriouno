@@ -17,12 +17,24 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="">
+            <div class="d-flex justify-content-between">
                 <h1 class="display-1">Editar curso <strong>{{ $curso->nombre }}</strong></h1>
+                <div class="row me-1">
+                    <span class="col">Publicar curso</span>
+                    <div class="col form-check form-switch form-switch-md mb-3" dir="ltr">
+                        @php
+                            $s = "";
+                            if($curso->status){
+                                $s = "checked";
+                            }
+                        @endphp
+                        <input form="form" class="form-check-input" type="checkbox" id="SwitchCheckSizemd" name="status" {{$s}}>
+                    </div>
+                </div>
             </div>
             <div class="container">
                 <div class="mt-3 bg-white p-3">
-                    <form class="needs-validation" novalidate method="POST"
+                    <form id="form" class="needs-validation" novalidate method="POST"
                         action="{{ route('admin.cursos.update', $curso->id) }}">
                         @csrf
                         @method('PUT')
@@ -64,19 +76,6 @@
                                 </div> 
                                 --}}
                             </div>
-                            
-                            <div class="col-lg-4 justify-content-end">
-
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="status">
-                                    <label class="form-check-label" for="exampleCheck1">Publicar curso</label>
-                                </div>
-                                {{-- <div class="form-check form-switch pt-4">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault">Publicar curso</label>
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                </div> --}}
-                            </div>
-                            
                         </div>
 
                         <div class="row">

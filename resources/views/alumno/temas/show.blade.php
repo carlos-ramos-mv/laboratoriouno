@@ -72,13 +72,17 @@
                 @method('PUT')
                 <div class="d-flex justify-content-center">
                     <div class="rating-star">
-                        @php
+                        {{-- @php
                             $r = 0;
-                            if(!$rate){
-                                $r = $rate->rate;
+                            if(){
+                                $r = ;
                             }
-                        @endphp
-                        <input name="rate" id="rate" type="hidden" class="rating form-control" data-filled="fs-1 mdi mdi-star text-primary" data-empty="fs-1 mdi mdi-star-outline text-muted" value="{{$r}}" required/>
+                        @endphp --}}
+                        <input name="rate" id="rate" type="hidden" class="rating form-control" data-filled="fs-1 mdi mdi-star text-primary" data-empty="fs-1 mdi mdi-star-outline text-muted" 
+                        @if ($rate != null)
+                            value="{{$rate->rate}}"
+                        @endif 
+                        required/>
                     </div>
                 </div>
                 @if ($u === 'ultimo-modulo-y-elemento')

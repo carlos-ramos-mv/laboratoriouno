@@ -8,23 +8,20 @@ use App\Models\Curso;
  * Métodos para los cursos
  */
 
-trait CrusoTrait
+trait CursoTrait
 {
 
-    public function actualizarPorcentajeCurso(Curso $curso, $user_id){ 
+    public function actualizarProgresoCurso(Curso $curso, $user_id){ 
         
         $modulosTotal = sizeof($curso->modulos);
         if ($modulosTotal>0) {
-            $modulosCompletados = 0;
-            foreach ($curso->modulos as $modulo) {
-                
-                if (sizeof($modulo->avances()->where('user_id', $user_id)->where('completado', true)->get())==1) {
-                    $modulosCompletados++;
-                }
-                
+            $modulosPorcentaje = 0;
+            foreach ($curso->modulos()->where('status',true)->get() as $modulo) {
+                $a = $modulo->avances()->select('progreso')->where('user_id',$user_id)->first();
+                $modulosPorcentaje += $a->progreso;
             }
 
-            $progreso = round(($modulosCompletados*100/$modulosTotal),2);
+            $progreso = round(($modulosPorcentaje/$modulosTotal),2);
 
             $curso->users()->updateExistingPivot($user_id,['progreso'=>$progreso],false);
 
@@ -37,15 +34,15 @@ trait CrusoTrait
 
     public function actualizarPuntuacionCurso(Curso $curso, $user_id){ 
         
-        $modulos = $curso->modulos()->select('id');
+        $modulos = $curso->modulos()->select('id')->get();
         if (sizeof($modulos)>0) {
             $modulosCalificados = 0;
             $puntuacionTotal = 0;
 
             foreach ($modulos as $modulo) {
-                $consulta = $modulo->avances()->select('puntuacion')->where('user_id', $user_id)->get();
-                if (sizeof($consulta)==1) {
-                    $puntuacion = $consulta[0]->puntuacion;
+                $a = $modulo->avances()->select('puntuacion')->where('user_id', $user_id)->first();
+                if ($a != null) {
+                    $puntuacion = $a->puntuacion;
                     if ($puntuacion!=null) {
                         $modulosCalificados++;
                         $puntuacionTotal = $puntuacionTotal + $puntuacion;

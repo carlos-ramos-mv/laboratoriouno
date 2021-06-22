@@ -45,7 +45,6 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="">
                                 <li><a href="{{route('admin.instructores.index')}}" key="">Ver todos</a></li>
-                                <li><a href="{{route('admin.instructores.activar')}}">Activar/Desactivar</a></li>
                             </ul>                        
                         </li>
                         @endcan
@@ -90,7 +89,7 @@
                         <li>
                             <a href="javascript: void(0)" class="waves-effect has-arrow">
                                 <i class="mdi mdi-star-circle"></i>
-                                <span key="" >Records</span>
+                                <span key="" >Puntuaciones</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="">
                                 <li><a href="{{route('admin.instructores.index')}}" key="">Ver todos</a></li>

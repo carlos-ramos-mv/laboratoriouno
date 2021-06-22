@@ -50,10 +50,13 @@
             <div class="bg-white p-2 mt-3">
                 <h3 class="display-3">Progreso total del curso</h3>
                 <div class="row me-2 me-sm-0">
-                    <div class="progress m-4 col">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: {{$curso->pivot->progreso}}%" aria-valuenow="25"
-                            aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="m-4 col">
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{$curso->pivot->progreso}}%" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </div>
+                    
                     <span class="col-1 align-self-center">{{$curso->pivot->progreso}}%</span> 
                 </div>
             </div>
@@ -67,10 +70,11 @@
                     <div class="row me-2 me-sm-0">
                         
                         <span class="d-block col-sm-3 align-self-center ms-3 border-end border-secondary texto-p">{{$i}}. {{$modulo->titulo}}</span>
-                        <div class="progress m-4 col">
-                            
-                            <div class="progress-bar" role="progressbar" style="width: {{$modulo->avances[0]->progreso}}%;" aria-valuenow="{{$modulo->avances[0]->progreso}}"
-                                aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="m-4 col">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{$modulo->avances[0]->progreso}}%;" aria-valuenow="{{$modulo->avances[0]->progreso}}"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
                         <span class="col-1 align-self-center">{{$modulo->avances[0]->progreso}}%</span>
                         @if ($modulo->avances[0]->progreso==100 && $modulo->avances[0]->completado)

@@ -17,9 +17,10 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div>
-            <h3 class="">Módulo: {{$modulo->titulo}}</h3>
-        </div>
+        <h3 class="">Módulo: {{$modulo->titulo}}</h3>
+    </div>
+    <div class="row">
+        <p>{{$modulo->descripcion}}</p>
     </div>
 
 </div>
