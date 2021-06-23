@@ -52,7 +52,13 @@
                                     <td width="10px">
                                         <div class="d-flex">
                                             <a class="btn btn-outline-warning btn-md me-2" href="{{route('admin.instructores.edit',$instructor->id)}}"><i class="mdi mdi-square-edit-outline"></i></a>
-                                            <a class="btn btn-outline-danger btn-md" href="{{route('admin.instructores.destroy',$instructor->id)}}"><i class="mdi mdi-delete"></i></a>
+                                            <form class="delete-form" action="{{route('admin.instructores.destroy',$instructor->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-outline-danger btn-md" type="submit">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                     <td>
@@ -108,6 +114,26 @@
         timer: 1500
     });
 </script>
-
 @endif
+
+<script>
+    $('.delete-form').submit(function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: "¿Seguro que quieres eliminar este elemento?",
+            text: "¡Esta acción no se puede revertir!",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonColor: "#74788d",
+            confirmButtonColor: "#f46a6a",
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.value) {
+                this.submit();
+            }
+        });
+    });
+</script>
+
 @endsection

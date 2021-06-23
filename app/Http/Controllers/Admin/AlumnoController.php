@@ -57,9 +57,9 @@ class AlumnoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $alumno)
     {
-        //
+        return view('admin.alumnos.edit',compact('alumno'));
     }
 
     /**
@@ -69,9 +69,16 @@ class AlumnoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,User $alumno)
     {
-        //
+        $alumno->nombre = $request->nombre;
+        $alumno->ap_pat = $request->apPat;
+        $alumno->ap_mat = $request->apMat;
+        $alumno->status = $request->status;
+
+        $alumno->save();
+
+        return redirect()->action([AlumnoController::class, 'index'])->with('edit', '¡Alumno editado correctamente!');
     }
 
     /**
@@ -80,8 +87,9 @@ class AlumnoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('admin.alumnos.index')->with('delete','¡Alumno eliminado correctamente!');
     }
 }

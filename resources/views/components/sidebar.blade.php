@@ -86,7 +86,7 @@
                             </ul>                        
                         </li>
 
-                        <li>
+                        {{-- <li>
                             <a href="javascript: void(0)" class="waves-effect has-arrow">
                                 <i class="mdi mdi-star-circle"></i>
                                 <span key="" >Puntuaciones</span>
@@ -94,7 +94,7 @@
                             <ul class="sub-menu" aria-expanded="">
                                 <li><a href="{{route('admin.instructores.index')}}" key="">Ver todos</a></li>
                             </ul>                        
-                        </li>
+                        </li> --}}
                         
                     @endcan
 

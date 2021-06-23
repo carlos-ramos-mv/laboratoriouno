@@ -16,7 +16,7 @@
         <div class=""><h1 class="display-1">Editar alumno <strong>{{$alumno->nombre}}</strong></h1></div>
         <div class="container">
             <div class="mt-3 bg-white p-3">
-                <!-- <form class="needs-validation" novalidate method="POST" action="{{route('admin.alumnos.update',$alumno->id)}}">
+                <form class="needs-validation" novalidate method="POST" action="{{route('admin.alumnos.update',$alumno->id)}}">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -39,26 +39,21 @@
     
                             <div class="mb-3">
                                 <label class="form-label">Status</label>
-                                <div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="statusActivo">
-                                        <label class="form-check-label" for="statusActivo">
-                                          Activo
-                                        </label>
-                                      </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="statusInactivo">
-                                        <label class="form-check-label" for="statusInactivo">
-                                          Inactivo
-                                        </label>
-                                      </div>
+                                <div class="form-check form-switch form-switch-md mb-3" dir="ltr">
+                                    @php
+                                        $s = "";
+                                        if($alumno->status){
+                                            $s = "checked";
+                                        }
+                                    @endphp
+                                    <input class="form-check-input" type="checkbox" id="SwitchCheckSizemd" name="status" {{$s}}>
                                 </div>
                             </div>
     
                             <x-editar-cancelar></x-editar-cancelar>
                         </div>
                     </div>
-                </form> -->
+                </form>
             </div>
         </div>
     

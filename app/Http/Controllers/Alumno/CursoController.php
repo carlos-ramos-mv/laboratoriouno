@@ -118,6 +118,11 @@ class CursoController extends Controller
         //
     }
 
+    public function finalizado()
+    {
+        return view('alumno.cursos.finalizado');
+    }
+
     public function inscribirse(Curso $curso)
     {
         Auth::user()->cursos()->attach($curso,['progreso'=>0,'completado'=>false]);

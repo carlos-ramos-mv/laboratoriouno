@@ -38,11 +38,11 @@
                 @endphp</p>
             </div>
             <div class="p-3 pt-0 d-flex justify-content-end">
-                @if ($u === 'no-actividades' )
+                {{-- @if ($u === 'no-actividades' ) --}}
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rateModal">
                         Continuar
                     </button>
-                @else
+                {{-- @else
                     <form class="save-form" action="{{ route('alumno.avances.update', $tema) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -50,7 +50,7 @@
                         <input type="hidden" name="ultimo" id="ultimo" value="{{$u}}">
                         <input type="hidden" name="tipo" id="tipo" value="tema">
                     </form>
-                @endif
+                @endif --}}
                 
             </div>
         </div>  

@@ -187,7 +187,7 @@ class AvanceController extends Controller
                     $rate->save();
 
                     //REVISAR SI EXISTE UN FEEDBACK
-                    $feedback = $rate->feedback;
+                    $feedback = $rate->feedback()->select('id','comentario')->first();
                     if ($rate->feedback == null) {
                         $feedback = new Feedback();
                         $feedback->rate_id = $rate->id;
@@ -196,7 +196,7 @@ class AvanceController extends Controller
                     $feedback->save();
 
                     $curso = $tema->modulo->curso;
-                    return route('alumno.cursos.finalizado', $curso);
+                    return redirect()->route('alumno.cursos.finalizado', $curso);
                     break;
                 default:
                     
