@@ -45,6 +45,7 @@
                                 id="breve-descripcion" 
                                 required
                                 maxlength="100"></textarea>
+                                <x-feedback></x-feedback>
                             </div>
     
                             <input class="form-control" type="hidden" name="curso" id="curso" value="{{$_GET['curso']}}">

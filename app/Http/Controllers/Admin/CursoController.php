@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Curso;
-use App\Models\Tema;
-use App\Models\Modulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class CursoController extends Controller
 {
@@ -45,7 +42,12 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'nombre' => 'required|max:150',
+            'breveDescripcion' => 'required|max:100',
+            'descripcion' => 'required',
+        ]);
+
         $curso = new Curso();
 
         $curso->nombre = $request->nombre;
@@ -122,4 +124,6 @@ class CursoController extends Controller
         // return redirect()->action([CursoController::class, 'index'])->with('delete','¡Curso eliminado correctamente!');
         return redirect()->route('admin.cursos.index')->with('delete','¡Curso eliminado correctamente!');
     }
+
+
 }

@@ -2,13 +2,6 @@
 
 @section('title', 'Editar alumno')
 
-@section('css')
-@endsection
-
-@section('elementos-sidebar')
-
-@endsection
-
 @section('content')
 
 <div class="container-fluid">

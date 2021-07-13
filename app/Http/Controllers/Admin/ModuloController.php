@@ -47,6 +47,14 @@ class ModuloController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'numero' => 'required|numeric',
+            'titulo' => 'required|max:150',
+            'breveDescripcion' => 'required|max:100',
+            'descripcion' => 'required',
+        ]);
+
         $modulo = new Modulo();
 
         $modulo->numero = $request->numero;
@@ -119,6 +127,13 @@ class ModuloController extends Controller
      */
     public function update(Request $request, Modulo $modulo)
     {
+        $request->validate([
+            'numero' => 'required|numeric',
+            'titulo' => 'required|max:150',
+            'breveDescripcion' => 'required|max:100',
+            'descripcion' => 'required',
+        ]);
+        
         $modulo->numero = $request->numero;
         $modulo->titulo = $request->titulo;
         $modulo->breve_descripcion = $request->breveDescripcion;

@@ -17,16 +17,16 @@
 
 @section('body')
 
-    <body class="auth-body-bg d-flex justify-content-center">
+    <body class="auth-body-bg">
     @endsection
 
     @section('content')
 
         <div>
             <div class="container-fluid p-0">
-                <div class="row g-0">
+                <div class="row g-0 justify-content-center">
 
-                    <div class="">
+                    <div class="col-md-6 col-xl-4">
                         <div class="auth-full-page-content p-md-5 p-4">
                             <div class="w-100">
 

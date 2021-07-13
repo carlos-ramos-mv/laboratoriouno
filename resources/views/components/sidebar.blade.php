@@ -64,6 +64,21 @@
 
                         @endcan
 
+                        @role('Admin')
+                        <li>
+                            <a href="javascript: void(0)" class="waves-effect has-arrow">
+                                <i class="mdi mdi-account-group-outline"></i>
+                                <span key="" >Respaldo</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="">
+                                <li><a href="{{route('admin.backup')}}" key="">Backup</a></li>
+                                <li><a href="{{route('admin.restore')}}">Restore</a></li>
+                            </ul>                        
+                        </li>
+                        @else
+
+                        @endrole
+
                     @endcan
 
                     
