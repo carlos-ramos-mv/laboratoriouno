@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOMEALUMNO;
 
     /**
      * Create a new controller instance.
@@ -67,18 +67,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        /* if (request()->has('avatar')) {            
-            $avatar = request()->file('avatar');
-            $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatarPath = public_path('/images/');
-            $avatar->move($avatarPath, $avatarName);
-        } */
-        
-        return User::create([
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'dob' => date('Y-m-d', strtotime($data['dob'])),
-        ]);
+        if ($data['role']=='Alumno') {
+            return User::create([
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'dob' => date('Y-m-d', strtotime($data['dob'])),
+                'status' => true,
+            ])->assignRole($data['role']);
+        }
+        elseif ($data['role']=='Instructor') {
+            return User::create([
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'dob' => date('Y-m-d', strtotime($data['dob'])),
+            ])->assignRole($data['role']);
+        }
+        else {
+            return User::create([
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'dob' => date('Y-m-d', strtotime($data['dob'])),
+            ]);
+        }
         //'name' => $data['name'],
         //'avatar' => "/images/" . $avatarName,
     }

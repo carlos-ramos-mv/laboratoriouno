@@ -11,11 +11,11 @@
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect">
         <i class="bx bx-layout"></i>
-        <span key="t-dashboards">{{$curso->nombre}}</span>
+        <span key="">{{$curso->nombre}}</span>
     </a>
     <ul class="sub-menu" aria-expanded="false">
-        <li><a href="index" key="t-default">Módulo 1</a></li>
-        <li><a href="dashboard-saas" key="t-saas">Módulo 2</a></li>
+        <li><a href="#" key="">Módulo 1</a></li>
+        <li><a href="#" key="">Módulo 2</a></li>
     </ul>
 </li>
 
@@ -36,7 +36,7 @@
 
     @foreach ($cursos as $curso)
         
-    <div class="col-md-3">
+    <div class="col-sm-5 col-md-3">
         <div class="card shadow-lg">
             <img class="card-img-top img-fluid" src="{{ URL::asset('/assets/images/small/img-1.jpg') }}" alt="Card image cap">
             <div class="card-body">

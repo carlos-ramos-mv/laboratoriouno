@@ -1,0 +1,230 @@
+:root {
+    --bs-primary: #002b7a;
+}
+
+body[data-layout-size=boxed] #layout-wrapper {
+    background-color: #f8fafc;
+}
+
+.shadow {
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 25%) !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #002b7a;
+    border-color: #002b7a
+}
+
+.btn-check:focus+.btn-primary,
+.btn-primary:focus,
+.btn-primary:hover {
+    color: #fff;
+    background-color: #001233;
+    border-color: #00102c
+}
+
+.btn-check:focus+.btn-primary,
+.btn-primary:focus {
+    -webkit-box-shadow: 0 0 0 .15rem rgba(111, 132, 234, .5);
+    box-shadow: 0 0 0 .15rem rgba(111, 132, 234, .5)
+}
+
+.btn-check:active+.btn-primary,
+.btn-check:checked+.btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #4458b8;
+    border-color: #4053ad
+}
+
+.btn-check:active+.btn-primary:focus,
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    -webkit-box-shadow: 0 0 0 .15rem rgba(111, 132, 234, .5);
+    box-shadow: 0 0 0 .15rem rgba(111, 132, 234, .5)
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #002b7a;
+    border-color: #002b7a
+}
+
+.link-primary {
+    color: #002b7a
+}
+
+.link-primary:focus,
+.link-primary:hover {
+    color: #4458b8
+}
+
+.border-primary {
+    border-color: #002b7a!important
+}
+
+.text-primary {
+    color: #002b7a!important
+}
+
+.bg-primary {
+    background-color: #002b7a!important
+}
+
+.badge.bg-primary[href]:focus,
+.badge.bg-primary[href]:hover {
+    background-color: #435fe3!important
+}
+
+.badge-soft-primary {
+    color: #002b7a;
+    background-color: rgba(85, 110, 230, .18)
+}
+
+.badge-soft-primary[href]:focus,
+.badge-soft-primary[href]:hover {
+    color: #002b7a;
+    text-decoration: none;
+    background-color: rgba(85, 110, 230, .4)
+}
+
+
+/* code {
+    background: lightgray;
+} */
+
+body[data-sidebar=dark] .navbar-brand-box {
+    background: #002B7A
+}
+
+body[data-sidebar=dark] .logo-dark {
+    display: none
+}
+
+body[data-sidebar=dark] .logo-light {
+    display: block
+}
+
+body[data-sidebar=dark] .vertical-menu {
+    background: #002B7A
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a {
+    color: #c2cbe5
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a i {
+    color: #888fa5
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li a:hover,
+body[data-sidebar=dark] #sidebar-menu ul li a:hover i {
+    color: #fff
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li:hover {
+    background: #002261;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li:hover ul {
+    background: #002B7A;
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a {
+    color: #c2cbe5
+}
+
+body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a:hover {
+    color: #fff
+}
+
+body[data-sidebar=dark].vertical-collpsed {
+    min-height: 1760px
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>a {
+    background: #002261;
+    color: #fff
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>a i {
+    color: #fff
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>ul a {
+    color: #79829c
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>ul a:hover {
+    color: #fff
+}
+
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul ul {
+    background-color: #002B7A
+}
+
+body[data-sidebar=dark] .mm-active,
+body[data-sidebar=dark] .mm-active .active,
+body[data-sidebar=dark] .mm-active .active i,
+body[data-sidebar=dark] .mm-active>a,
+body[data-sidebar=dark] .mm-active>a i,
+body[data-sidebar=dark] .mm-active>i,
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active,
+body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active i {
+    color: #fff!important
+}
+
+body[data-sidebar=dark] .menu-title {
+    color: #fff
+}
+
+.card-img {
+    height: 130px;
+}
+
+.display-1 {
+    font-size: 2rem;
+}
+
+.display-2 {
+    font-size: 1.5rem;
+}
+
+.display-3 {
+    font-size: 1.2rem;
+}
+
+.display-4 {
+    font-size: 1rem;
+}
+
+.display-5 {
+    font-size: .4rem;
+}
+
+.display-6 {
+    font-size: .2rem;
+}
+
+.mdi-star {
+    color: #bb8800!important;
+}
+
+.texto-h1 {
+    width: 400px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.texto-p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

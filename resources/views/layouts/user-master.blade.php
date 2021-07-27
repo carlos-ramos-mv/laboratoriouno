@@ -18,7 +18,9 @@
 @show
     <!-- Begin page -->
     <div id="layout-wrapper">
-        @include('layouts.user-topbar')
+        {{-- @include('layouts.user-topbar') --}}
+
+        <x-topbar></x-topbar>
 
         <x-sidebar>
             <x-slot name="elementos">
@@ -30,7 +32,7 @@
         <!-- Start right Content here -->
         {{-- style="border: 1px solid red --}}
         <!-- ============================================================== -->
-        <div class="main-content" ">
+        <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
                     @yield('content')
@@ -43,10 +45,6 @@
         <!-- end main content-->
     </div>
     <!-- END layout-wrapper -->
-
-    <!-- Right Sidebar -->
-    @include('layouts.right-sidebar')
-    <!-- /Right-bar -->
 
     <!-- JAVASCRIPT -->
     @include('layouts.vendor-scripts')

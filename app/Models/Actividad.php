@@ -11,4 +11,14 @@ class Actividad extends Model
     protected $table = "actividades";
 
     use HasFactory;
+
+    public function avances()
+    {
+        return $this->morphMany(Avance::class, 'avanzable');
+    }
+
+    public function tema()
+    {
+        return $this->belongsTo(Tema::class);
+    }
 }
