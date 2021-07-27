@@ -35,7 +35,11 @@
             <div class="container">
                 <div class="mt-3 bg-white p-3">
                     <form id="form" class="needs-validation" novalidate method="POST"
-                        action="{{ route('admin.cursos.update', $curso->id) }}">
+                        action="@role('Admin')
+                        {{route('admin.cursos.update', $curso->id)}}
+                        @else
+                        {{route('instructor.cursos.update', $curso->id)}}
+                        @endrole">
                         @csrf
                         @method('PUT')
                         <div class="row">

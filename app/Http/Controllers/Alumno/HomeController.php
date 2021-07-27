@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Alumno;
 use App\Http\Controllers\Controller;
 use App\Models\Curso;
 use App\Models\User;
+use App\Traits\AlumnoTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    use AlumnoTrait;
 
     public function __construct()
     {
@@ -50,21 +52,7 @@ class HomeController extends Controller
 
     public function update(Request $request)
     {
-
-        $request->validate([
-            'ap_pat' => 'max:50',
-            'ap_mat' => 'max:50',
-            'nombre' => 'max:50',
-            'dob' => ['required', 'date', 'before:today'],
-        ]);
-        $user = User::find(Auth::user()->id);
-
-        $user->ap_pat = $request->ap_pat;
-        $user->ap_mat = $request->ap_mat;
-        $user->nombre = $request->nombre;
-
-        $user->save();
-
+        $this->updateProfile($request, Auth::user());
         return redirect()->route('alumno.home')->with('perfil-updated','¡Perfil actualizado con éxito!');
     }
 }

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Curso;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Traits\AdminTrait;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    use AdminTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,23 +23,8 @@ class HomeController extends Controller
 
     public function publicar()  
     {
-        $cursos = $this->getCursos();
+        $cursos = $this->getAllCursos();
         return view('admin.publicar',compact('cursos'));
-    }
-
-    private function getCursos()
-    {
-        $cursos = Curso::select('id','nombre','status')->get();
-        foreach ($cursos as $curso ) {
-            $modulos = $curso->modulos()->select('id','titulo','status')->get();
-            foreach ($modulos as $modulo) {
-                $temas = $modulo->temas()->select('titulo','status','id')->orderBy('id','asc')->get();
-                foreach ($temas as $tema ) {
-                    $tema->actividades()->select('id','titulo','status')->get();
-                }
-            }
-        }
-        return $cursos;
     }
 
     public function perfil()
@@ -48,31 +35,34 @@ class HomeController extends Controller
     public function update(Request $request)
     {
 
-        $request->validate([
-            'ap_pat' => 'max:50',
-            'ap_mat' => 'max:50',
-            'nombre' => 'max:50',
-            'dob' => ['required', 'date', 'before:today'],
-        ]);
-        $user = User::find(Auth::user()->id);
+        $s = $this->updateProfile($request, Auth::user());
 
-        $user->ap_pat = $request->ap_pat;
-        $user->ap_mat = $request->ap_mat;
-        $user->nombre = $request->nombre;
-
-        $user->save();
-
-        if ($user->hasRole('Admin')) {
-            return redirect()->route('admin.home')->with('perfil-updated','¡Perfil actualizado con éxito!');    
-        } else if ($user->hasRole('Instructor')) {
-            return redirect()->route('instructor.home')->with('perfil-updated','¡Perfil actualizado con éxito!');
+        if ($s) {
+            if (Auth::user()->hasRole('Admin')) {
+                return redirect()->route('admin.home')->with('perfil-updated','¡Perfil actualizado con éxito!');    
+            } else if (Auth::user()->hasRole('Instructor')) {
+                return redirect()->route('instructor.home')->with('perfil-updated','¡Perfil actualizado con éxito!');
+            }
+        } else {
+            return "No se pudo actualizar el perfil. Intenta más tarde.";
         }
+        
         
     }
 
     public function backup()
     {
-        return view('admin.backup');
+        $query = " SELECT table_name
+        FROM information_schema.tables
+       WHERE table_schema='public'
+         AND table_type='BASE TABLE';";
+        $table_name = DB::select($query);
+        $tables = [];
+        foreach ($table_name as $table) {
+            $tables[] = $table->table_name;
+        }
+
+        return view('admin.backup', compact('tables'));
     }
 
     public function restore()
@@ -82,11 +72,16 @@ class HomeController extends Controller
 
     public function backupStore(Request $request)
     {
+        // $output = null;
+        // $status = null;
+        // $result = exec('C:\xampp\htdocs\laboratoriouno\backup\backup.py',$output,$satus);
+        // shell_exec("py C:\xampp\htdocs\laboratoriouno\backup\backup.py ");
+        
         return $request->all();
     }
 
     public function restoreStore()
     {
-        return view('admin.restore');
+        #code...
     }
 }

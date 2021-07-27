@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Alumno;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Modulo;
-use App\Models\Tema;
 
 class ModuloController extends Controller
 {

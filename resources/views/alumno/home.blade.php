@@ -104,4 +104,17 @@
     <script src="{{ URL::asset('/assets/libs/bootstrap-rating/bootstrap-rating.min.js') }}"></script>
 
     <script src="{{ URL::asset('/assets/js/pages/rating-init.js') }}"></script>
+
+    
+@if (session('curso-finalizado'))
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('curso-finalizado')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+@endif
 @endsection

@@ -23,12 +23,21 @@
             </div>
             <div class="container">
                 <div class="mt-3 bg-white p-3">
+                    <h2 class="display-3 mb-3">Tablas</h2>
                     <form class="needs-validation" novalidate method="POST" action="{{ route('admin.backup.store') }}">
                         @csrf
                         <div class="row">
                             <div class="col-lg-8">
 
+                                @foreach ($tables as $table)
                                 <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="{{$table}}" name="{{$table}}" checked>
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        {{$table}}
+                                    </label>
+                                </div>
+                                @endforeach
+                                {{-- <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" id="users" name="users">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Users
@@ -75,7 +84,7 @@
                                     <label class="form-check-label" for="flexCheckChecked">
                                         Feedbacks
                                     </label>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 

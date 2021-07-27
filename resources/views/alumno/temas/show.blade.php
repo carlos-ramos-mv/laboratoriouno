@@ -72,12 +72,6 @@
                 @method('PUT')
                 <div class="d-flex justify-content-center">
                     <div class="rating-star">
-                        {{-- @php
-                            $r = 0;
-                            if(){
-                                $r = ;
-                            }
-                        @endphp --}}
                         <input name="rate" id="rate" type="hidden" class="rating form-control" data-filled="fs-1 mdi mdi-star text-primary" data-empty="fs-1 mdi mdi-star-outline text-muted" 
                         @if ($rate != null)
                             value="{{$rate->rate}}"
@@ -86,6 +80,7 @@
                     </div>
                 </div>
                 @if ($u === 'ultimo-modulo-y-elemento')
+                    <div><h5>Comentarios sobre el curso</h5></div>
                     <div class="row">
                         <textarea class="form-control" name="comentario" id="comentario" cols="30" rows="10" placeholder="Envíanos tus comentarios. ¡Nos ayudará a mejorar!"></textarea>
                     </div>
@@ -130,4 +125,5 @@
         });
     });
 </script>
+
 @endsection

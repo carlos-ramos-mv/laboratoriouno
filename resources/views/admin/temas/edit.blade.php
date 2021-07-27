@@ -33,12 +33,24 @@
         </div>
         <div class="container">
             <div class="mt-3 bg-white p-3">
-                <form id="form" class="needs-validation" novalidate method="POST" action="{{route('admin.temas.update',$tema->id)}}">
+                <form id="form" class="needs-validation" novalidate method="POST" action="@role('Admin')
+                {{route('admin.temas.update',$tema->id)}}
+                @else
+                {{route('instructor.temas.update',$tema->id)}}
+                @endrole">
                     @csrf
                     @method('PUT')
                     <div class="row">
                         <div class="col-lg-8">
-    
+
+                            <div class="mb-3">
+                                <label class="form-label">Número del tema</label>
+                                <input id="numero" name="numero" class="form-control" type="number" min="1" max="99"                                
+                                placeholder="Número de tema"
+                                value="{{$tema->numero}}"
+                                required>
+                                <x-feedback></x-feedback>
+                            </div>
                             <div class="mb-3">
                                 <label class="form-label">Nombre/título del tema</label>
                                 <input id="titulo" name="titulo" class="form-control" type="text" placeholder="Escriba el nombre" value="{{$tema->titulo}}" required>

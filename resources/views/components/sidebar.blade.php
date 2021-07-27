@@ -25,8 +25,16 @@
                                 <span key="" >Cursos</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="">
-                                <li><a href="{{route('admin.cursos.index')}}" key="">Todos los cursos</a></li>
-                                <li><a href="{{route('admin.cursos.create')}}">Crear nuevo curso</a></li>
+                                <li><a href="@role('Admin')
+                                    {{route('admin.cursos.index')}}
+                                    @else
+                                    {{route('instructor.cursos.index')}}
+                                    @endrole" key="">Todos los cursos</a></li>
+                                <li><a href="@role('Admin')
+                                    {{route('admin.cursos.create')}}
+                                    @else
+                                    {{route('instructor.cursos.create')}}
+                                    @endrole">Crear nuevo curso</a></li>
                             </ul>                        
                         </li>
 

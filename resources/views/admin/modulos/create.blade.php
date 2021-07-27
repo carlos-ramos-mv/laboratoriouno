@@ -21,14 +21,26 @@
         <div class=""><h1 class="display-1">Agregar un nuevo módulo</h1></div>
         <div class="container">
             <div class="mt-3 bg-white p-3">
-                <form class="needs-validation" novalidate method="POST" action="{{route('admin.modulos.store')}}">
+                <form class="needs-validation" novalidate method="POST" action="@role('Admin')
+                {{route('admin.modulos.store')}}
+                @else
+                {{route('instructor.modulos.store')}}
+                @endrole">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8">
     
                             <div class="mb-3">
                                 <label class="form-label">Número del módulo</label>
-                                <input id="numero" name="numero" class="form-control" type="number" placeholder="Escriba el numero" required>
+                                <input id="numero" name="numero" class="form-control" type="number" min="1" max="99"
+                                @if ($last===null)
+                                placeholder="Escriba el número de módulo"
+                                value="1"
+                                @else
+                                placeholder="Módulo anterior {{$last}}"
+                                value="{{$last+1}}"
+                                @endif
+                                required>
                                 <x-feedback></x-feedback>
                             </div>
                             <div class="mb-3">

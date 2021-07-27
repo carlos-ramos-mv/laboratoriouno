@@ -10,20 +10,6 @@
 
 <div class="container-fluid">
     <div class="row">
-
-        @if (session('status'))
-    
-            <div class="alert alert-success" id="alert-success">
-                {{ session('status') }}
-            </div>
-    
-        @elseif (session('tema'))
-    
-            <div class="alert alert-success" id="alert-success">
-                {{ session('tema') }}
-            </div>
-    
-        @endif
     
         <div class="d-flex justify-content-between">
             <div>
@@ -33,12 +19,6 @@
         <div class="container">
     
             <div class="mt-2">
-    
-                {{-- <div id="descripcion">
-                    @php
-                        echo $modulo->descripcion;
-                    @endphp
-                </div> --}}
     
                 <div class="card" >
                     <div class="card-body">
@@ -65,6 +45,56 @@
 
 
 @endsection
+
+@if (session('status'))
+    
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('status')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@elseif (session('actividad-store'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('actividad-store')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@elseif (session('actividad-update'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('actividad-update')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@elseif (session('actividad-delete'))
+
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '{{session('actividad-delete')}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+
+@endif
 
 @section('script')
     <script>
