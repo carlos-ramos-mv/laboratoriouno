@@ -76,6 +76,11 @@ class HomeController extends Controller
         // $status = null;
         // $result = exec('C:\xampp\htdocs\laboratoriouno\backup\backup.py',$output,$satus);
         // shell_exec("py C:\xampp\htdocs\laboratoriouno\backup\backup.py ");
+
+        $command = 'py C:\xampp\htdocs\laboratoriouno\backup\backup.py -db laboratoriouno';
+        //pclose(popen($command,'r'));
+
+        $output = shell_exec($command);
         
         return $request->all();
     }
