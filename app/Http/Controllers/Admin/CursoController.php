@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Curso;
-use App\Models\Tema;
-use App\Models\Modulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class CursoController extends Controller
 {
@@ -45,7 +42,12 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'nombre' => 'required|max:150',
+            'breveDescripcion' => 'required|max:100',
+            'descripcion' => 'required',
+        ]);
+
         $curso = new Curso();
 
         $curso->nombre = $request->nombre;
@@ -58,7 +60,11 @@ class CursoController extends Controller
 
         $curso = Curso::latest('id')->first();
 
-        return redirect()->action([CursoController::class, 'show'], $curso->id)->with('status', '¡Curso agregado correctamente!');
+        if (Auth::user()->hasRole('Admin')) {
+            return redirect()->route('admin.cursos.show',$curso->id)->with('status', '¡Curso agregado correctamente!');
+        } else if (Auth::user()->hasRole('Instructor')) {
+            return redirect()->route('instructor.cursos.show',$curso->id)->with('status', '¡Curso agregado correctamente!');
+        }
     }
 
     /**
@@ -69,7 +75,7 @@ class CursoController extends Controller
      */
     public function show(Curso $curso)
     {
-        $modulos = $curso->modulos;
+        $modulos = $curso->modulos()->orderBy('numero')->get();
         foreach ($modulos as $modulo) {
             $modulo->avances()->where('user_id',Auth::user()->id)->get();
         }
@@ -107,7 +113,11 @@ class CursoController extends Controller
 
         $curso->save();
 
-        return redirect()->action([CursoController::class, 'index'])->with('edit', '¡Curso editado correctamente!');
+        if (Auth::user()->hasRole('Admin')) {
+            return redirect()->route('admin.cursos.index')->with('edit', '¡Curso editado correctamente!');
+        } else if (Auth::user()->hasRole('Instructor')) {
+            return redirect()->route('instructor.cursos.index')->with('edit', '¡Curso editado correctamente!');
+        }
     }
 
     /**
@@ -119,7 +129,12 @@ class CursoController extends Controller
     public function destroy(Curso $curso)
     {
         $curso->delete();
-        // return redirect()->action([CursoController::class, 'index'])->with('delete','¡Curso eliminado correctamente!');
-        return redirect()->route('admin.cursos.index')->with('delete','¡Curso eliminado correctamente!');
+        if (Auth::user()->hasRole('Admin')) {
+            return redirect()->route('admin.cursos.index')->with('delete','¡Curso eliminado correctamente!');
+        } else if (Auth::user()->hasRole('Instructor')) {
+            return redirect()->route('instructor.cursos.index')->with('delete','¡Curso eliminado correctamente!');
+        }
     }
+
+
 }

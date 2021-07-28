@@ -25,8 +25,16 @@
                                 <span key="" >Cursos</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="">
-                                <li><a href="{{route('admin.cursos.index')}}" key="">Todos los cursos</a></li>
-                                <li><a href="{{route('admin.cursos.create')}}">Crear nuevo curso</a></li>
+                                <li><a href="@role('Admin')
+                                    {{route('admin.cursos.index')}}
+                                    @else
+                                    {{route('instructor.cursos.index')}}
+                                    @endrole" key="">Todos los cursos</a></li>
+                                <li><a href="@role('Admin')
+                                    {{route('admin.cursos.create')}}
+                                    @else
+                                    {{route('instructor.cursos.create')}}
+                                    @endrole">Crear nuevo curso</a></li>
                             </ul>                        
                         </li>
 
@@ -63,6 +71,21 @@
                         </li>
 
                         @endcan
+
+                        @role('Admin')
+                        <li>
+                            <a href="javascript: void(0)" class="waves-effect has-arrow">
+                                <i class="mdi mdi-account-group-outline"></i>
+                                <span key="" >Respaldo</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="">
+                                <li><a href="{{route('admin.backup')}}" key="">Backup</a></li>
+                                <li><a href="{{route('admin.restore')}}">Restore</a></li>
+                            </ul>                        
+                        </li>
+                        @else
+
+                        @endrole
 
                     @endcan
 

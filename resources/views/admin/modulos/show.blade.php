@@ -15,7 +15,11 @@
             <div>
                 <h1 class="display-1">Módulo: {{$modulo->titulo}}</h1>
             </div>
-            <form action="{{route('admin.temas.create')}}" method="GET">
+            <form action="@role('Admin')
+            {{route('admin.temas.create')}}
+            @else
+            {{route('instructor.temas.create')}}
+            @endrole" method="GET">
                 <div class="m-0 p-0">
                     <input class="form-control" type="hidden" name="modulo" id="modulo" value="{{$modulo->id}}">
                     <input type="submit" class="btn btn-success ms-auto" value="Agregar Tema">
@@ -48,12 +52,28 @@
                             @endphp
                         
                             <tr>
-                                <th scope="row"><a class="btn" href="{{route('admin.temas.show',$tema->id)}}">{{$i+1}}</a></th>
-                                <td><a class="btn" href="{{route('admin.temas.show',$tema->id)}}">{{$tema->titulo}}</a></td>
+                                <th scope="row"><a class="btn" href="@role('Admin')
+                                    {{route('admin.temas.show',$tema->id)}}
+                                    @else
+                                    {{route('instructor.temas.show',$tema->id)}}
+                                    @endrole">{{$i+1}}</a></th>
+                                <td><a class="btn" href="@role('Admin')
+                                    {{route('admin.temas.show',$tema->id)}}
+                                    @else
+                                    {{route('instructor.temas.show',$tema->id)}}
+                                    @endrole">{{$tema->titulo}}</a></td>
                                 <td width="10px">
                                     <div class="d-flex">
-                                        <a class="btn btn-outline-warning btn-md me-2" href="{{route('admin.temas.edit',$tema->id)}}"><i class="mdi mdi-square-edit-outline"></i></a>
-                                        <form class="delete-form" action="{{route('admin.temas.destroy',$tema->id)}}" method="POST">
+                                        <a class="btn btn-outline-warning btn-md me-2" href="@role('Admin')
+                                        {{route('admin.temas.edit',$tema->id)}}
+                                        @else
+                                        {{route('instructor.temas.edit',$tema->id)}}
+                                        @endrole"><i class="mdi mdi-square-edit-outline"></i></a>
+                                        <form class="delete-form" action="@role('Admin')
+                                        {{route('admin.temas.destroy',$tema->id)}}
+                                        @else
+                                        {{route('instructor.temas.destroy',$tema->id)}}
+                                        @endrole" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-outline-danger btn-md" type="submit">

@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Alumno;
 
 use App\Http\Controllers\Controller;
-use App\Models\Avance;
 use Illuminate\Http\Request;
-use App\Models\Curso;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Avance;
+use App\Models\Curso;
+use App\Traits\AlumnoTrait;
 
 class CursoController extends Controller
 {
+    use AlumnoTrait;
 
     public function __construct()
     {
@@ -120,61 +122,12 @@ class CursoController extends Controller
 
     public function finalizado()
     {
-        return view('alumno.cursos.finalizado');
+        //return view('alumno.cursos.finalizado');
+        return redirect()->action([HomeController::class, 'index'])->with('curso-finalizado','¡Felicidades, concluiste un curso exitosamente!');
     }
 
     public function inscribirse(Curso $curso)
     {
-        Auth::user()->cursos()->attach($curso,['progreso'=>0,'completado'=>false]);
-        $this->crearAvances($curso);
-        return redirect()->action([CursoController::class,'show',],$curso->id)->with('inscrito','¡Ahora estás inscrito en este curso!');
-    }
-    
-    //Metodo que crea los avances correspondientes al usuario
-    //Se crean avances para los módulos, temas y actividades pertenecientes al curso
-    private function crearAvances(Curso $curso)               
-    {
-
-        $avance = new Avance();
-        $uid= Auth::user()->id;
-
-        if (sizeof($curso->modulos)>0) {
-            $modulos = $curso->modulos()->select('id')->get();
-            foreach ($modulos as $modulo) { 
-                if (sizeof($modulo->temas)>0) {
-                    $temas = $modulo->temas()->select('id')->get();
-                    foreach ($temas as $tema) { 
-                        if (sizeof($tema->actividades)>0) {
-                            $actividades = $tema->actividades()->select('id')->get();
-                            foreach ($actividades as $actividad) { 
-                                $avance->avanzable_id = $actividad->id;
-                                $avance->avanzable_type = 'App\Models\Actividad';
-                                $avance->user_id = $uid;
-                                $avance->progreso = 0;
-
-                                $avance->save();
-                                $avance = new Avance();
-                            }
-                        }
-                        $avance->avanzable_id = $tema->id;
-                        $avance->avanzable_type = 'App\Models\Tema';
-                        $avance->user_id = $uid;
-                        $avance->progreso = 0;
-
-                        $avance->save();
-                        $avance = new Avance();
-                    }
-                }
-                $avance->avanzable_id = $modulo->id;
-                $avance->avanzable_type = 'App\Models\Modulo';
-                $avance->user_id = $uid;
-                $avance->progreso = 0;
-                $avance->completado = false;
-
-                $avance->save();
-                $avance = new Avance();
-            }
-        }
-
+        $this->inscribirse($curso, Auth::user());
     }
 }

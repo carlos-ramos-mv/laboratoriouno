@@ -12,7 +12,11 @@
                     <h1 class="display-1">Todos los cursos</h1>
                 </div>
                 <div class="m-0 p-0">
-                    <a class="btn btn-success me-auto sm-none" href="{{ route('admin.cursos.create') }}">Agregar Curso</a>
+                    <a class="btn btn-success me-auto sm-none" href="@role('Admin')
+                    {{route('admin.cursos.create')}}
+                    @else
+                    {{route('instructor.cursos.create')}}
+                    @endrole">Agregar Curso</a>
                 </div>
             </div>
 
@@ -35,30 +39,54 @@
                         </thead>
                         <tbody>
                             @for ($i = 0; $i < sizeof($cursos); $i++)
-
                                 @php
-
                                     $curso = $cursos[$i];
                                     $status = 'Inactivo';
                                     if($curso->status){
                                         $status = 'Activo';
                                     }
-
                                 @endphp
-
                                 <tr>
-                                    <th scope="row"><a class="btn" href="{{ route('admin.cursos.show', $curso->id) }}">{{ $curso->id }}</a></th>
-                                    <td><a class="btn" href="{{ route('admin.cursos.show', $curso->id) }}">{{ $curso->nombre }}</a></td>
-                                    <td><a class="btn" href="{{route('admin.cursos.show',$curso->id)}}">{{$status}}</a></td>
-                                    <td><a class="btn" href="{{route('admin.cursos.show',$curso->id)}}">{{$curso->created_at}}</a></td>
-                                    <td><a class="btn" href="{{route('admin.cursos.show',$curso->id)}}">{{$curso->updated_at}}</a></td>
+                                    <th scope="row"><a class="btn" href="@role('Admin')
+                                        {{route('admin.cursos.show', $curso->id)}}
+                                        @else
+                                        {{route('instructor.cursos.show', $curso->id)}}
+                                        @endrole">{{ $curso->id }}</a></th>
+                                    <td><a class="btn" href="@role('Admin')
+                                        {{route('admin.cursos.show', $curso->id)}}
+                                        @else
+                                        {{route('instructor.cursos.show', $curso->id)}}
+                                        @endrole">{{ $curso->nombre }}</a></td>
+                                    <td><a class="btn" href="@role('Admin')
+                                        {{route('admin.cursos.show', $curso->id)}}
+                                        @else
+                                        {{route('instructor.cursos.show', $curso->id)}}
+                                        @endrole">{{$status}}</a></td>
+                                    <td><a class="btn" href="@role('Admin')
+                                        {{route('admin.cursos.show', $curso->id)}}
+                                        @else
+                                        {{route('instructor.cursos.show', $curso->id)}}
+                                        @endrole">{{$curso->created_at}}</a></td>
+                                    <td><a class="btn" href="@role('Admin')
+                                        {{route('admin.cursos.show', $curso->id)}}
+                                        @else
+                                        {{route('instructor.cursos.show', $curso->id)}}
+                                        @endrole">{{$curso->updated_at}}</a></td>
                                     <td width="10px">
                                         <div class="d-flex">
                                             <a class="btn btn-outline-warning btn-md me-2"
-                                                href="{{ route('admin.cursos.edit', $curso->id) }}">
+                                                href="@role('Admin')
+                                                {{route('admin.cursos.edit', $curso->id)}}
+                                                @else
+                                                {{route('instructor.cursos.edit', $curso->id)}}
+                                                @endrole">
                                                 <i class="mdi mdi-square-edit-outline"></i>
                                             </a>
-                                            <form class="delete-form" action="{{ route('admin.cursos.destroy', $curso->id) }}" method="POST">
+                                            <form class="delete-form" action="@role('Admin')
+                                            {{route('admin.cursos.destroy', $curso->id)}}
+                                            @else
+                                            {{route('instructor.cursos.destroy', $curso->id)}}
+                                            @endrole" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-outline-danger btn-md" 

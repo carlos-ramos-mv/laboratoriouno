@@ -17,12 +17,20 @@
                         <h1 class="display-1">Curso: {{ $curso->nombre }}</h1>
                     </div>
                     <div>
-                        <a class="btn btn-gray btn-lg" href="{{ route('admin.cursos.edit', $curso->id) }}"><i
+                        <a class="btn btn-gray btn-lg" href="@role('Admin')
+                        {{route('admin.cursos.edit', $curso->id)}}
+                        @else
+                        {{route('instructor.cursos.edit', $curso->id)}}
+                        @endrole"><i
                                 class="action mdi mdi-circle-edit-outline"></i></a>
                     </div>
 
                 </div>
-                <form action="{{ route('admin.modulos.create') }}" method="GET">
+                <form action="@role('Admin')
+                {{route('admin.modulos.create')}}
+                @else
+                {{route('instructor.modulos.create')}}
+                @endrole" method="GET">
                     <div class="m-0 p-0">
                         <input class="form-control" type="hidden" name="curso" id="curso" value="{{ $curso->id }}">
                         <input type="submit" class="btn btn-success ms-auto" value="Agregar Módulo">
@@ -57,17 +65,33 @@
 
                                 <tr>
                                     <th scope="row"><a class="btn"
-                                            href="{{ route('admin.modulos.show', $modulo->id) }}">{{ $modulo->numero }}</a>
+                                            href="@role('Admin')
+                                            {{route('admin.modulos.show', $modulo->id)}}
+                                            @else
+                                            {{route('instructor.modulos.show', $modulo->id)}}
+                                            @endrole">{{ $modulo->numero }}</a>
                                     </th>
                                     <td><a class="btn"
-                                            href="{{ route('admin.modulos.show', $modulo->id) }}">{{ $modulo->titulo }}</a>
+                                            href="@role('Admin')
+                                            {{route('admin.modulos.show', $modulo->id)}}
+                                            @else
+                                            {{route('instructor.modulos.show', $modulo->id)}}
+                                            @endrole">{{ $modulo->titulo }}</a>
                                     </td>
                                     <td width="10px">
                                         <div class="d-flex">
                                             <a class="btn btn-outline-warning btn-md me-2"
-                                                href="{{ route('admin.modulos.edit', $modulo->id) }}"><i
+                                                href="@role('Admin')
+                                                {{route('admin.modulos.edit', $modulo->id)}}
+                                                @else
+                                                {{route('instructor.modulos.edit', $modulo->id)}}
+                                                @endrole"><i
                                                     class="mdi mdi-square-edit-outline"></i></a>
-                                            <form class="delete-form" action="{{ route('admin.modulos.destroy', $modulo->id) }}"
+                                            <form class="delete-form" action="@role('Admin')
+                                            {{route('admin.modulos.destroy', $modulo->id)}}
+                                            @else
+                                            {{route('instructor.modulos.destroy', $modulo->id)}}
+                                            @endrole"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')

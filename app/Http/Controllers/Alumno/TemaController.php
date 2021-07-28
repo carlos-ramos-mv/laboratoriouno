@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tema;
 use Illuminate\Support\Facades\Auth;
-use Monolog\Handler\IFTTTHandler;
 
 class TemaController extends Controller
 {

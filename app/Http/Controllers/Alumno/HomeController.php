@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Alumno;
 
 use App\Http\Controllers\Controller;
 use App\Models\Curso;
+use App\Models\User;
+use App\Traits\AlumnoTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    use AlumnoTrait;
 
     public function __construct()
     {
@@ -39,5 +43,16 @@ class HomeController extends Controller
             }
         }
         return view('alumno.home', compact('cursos', 'cursosUser'));
+    }
+
+    public function perfil()
+    {
+        return view('alumno.perfil');
+    }
+
+    public function update(Request $request)
+    {
+        $this->updateProfile($request, Auth::user());
+        return redirect()->route('alumno.home')->with('perfil-updated','¡Perfil actualizado con éxito!');
     }
 }

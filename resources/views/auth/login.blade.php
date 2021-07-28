@@ -16,16 +16,16 @@
 
 @section('body')
 
-    <body class="auth-body-bg d-flex justify-content-center">
+    <body class="auth-body-bg">
     @endsection
 
     @section('content')
 
         <div>
             <div class="container-fluid p-0">
-                <div class="row g-0">
+                <div class="row g-0 justify-content-center">
 
-                    <div class="col-xxl-6">
+                    <div class="col-md-6 col-xl-4">
                         <div class="auth-full-page-content p-md-5 p-4">
                             <div class="w-100">
 
@@ -60,12 +60,6 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <div class="float-end">
-                                                        @if (Route::has('password.request'))
-                                                            <a href="{{ route('password.request') }}"
-                                                                class="text-muted">¿Olvidaste tu contraseña?</a>
-                                                        @endif
-                                                    </div>
                                                     <label class="form-label">Contraseña</label>
                                                     <div
                                                         class="input-group auth-pass-inputgroup @error('password') is-invalid @enderror">
@@ -81,9 +75,15 @@
                                                             </span>
                                                         @enderror
                                                     </div>
+                                                    <div class="float-end">
+                                                        @if (Route::has('password.request'))
+                                                            <a href="{{ route('password.request') }}"
+                                                                class="text-muted">¿Olvidaste tu contraseña?</a>
+                                                        @endif
+                                                    </div>
                                                 </div>
 
-                                                <div class="form-check">
+                                                <div class="mt-4 form-check">
                                                     <input class="form-check-input" type="checkbox" id="remember"
                                                         {{ old('remember') ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="remember">

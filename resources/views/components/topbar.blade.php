@@ -149,7 +149,21 @@
             </button>
             <div class="dropdown-menu dropdown-menu-end">
                 <!-- item-->
-                <a class="dropdown-item" href="contacts-profile"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">@lang('translation.Profile')</span></a>
+                <a class="dropdown-item" 
+                @role('Alumno')
+                    href="{{route('alumno.perfil')}}"
+                @else
+                    @role('Instructor')
+                        href="{{route('instructor.perfil')}}"
+                    @else
+                        @role('Admin')
+                            href="{{route('admin.perfil')}}"
+                        @else
+                            href="#"
+                        @endrole
+                    @endrole
+                @endrole
+                ><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">@lang('translation.Profile')</span></a>
                 <a class="dropdown-item d-block" href="#" data-bs-toggle="modal" data-bs-target=".change-password"><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">@lang('translation.Settings')</span></a>
                 {{-- <span class="badge bg-success float-end">11</span> --}}
                 <div class="dropdown-divider"></div>

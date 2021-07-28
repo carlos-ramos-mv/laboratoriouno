@@ -32,31 +32,4 @@ trait CursoTrait
         
     }
 
-    public function actualizarPuntuacionCurso(Curso $curso, $user_id){ 
-        
-        $modulos = $curso->modulos()->select('id')->get();
-        if (sizeof($modulos)>0) {
-            $modulosCalificados = 0;
-            $puntuacionTotal = 0;
-
-            foreach ($modulos as $modulo) {
-                $a = $modulo->avances()->select('puntuacion')->where('user_id', $user_id)->first();
-                if ($a != null) {
-                    $puntuacion = $a->puntuacion;
-                    if ($puntuacion!=null) {
-                        $modulosCalificados++;
-                        $puntuacionTotal = $puntuacionTotal + $puntuacion;
-                    }
-                    
-                }
-            }
-
-            $promedio = round(($puntuacionTotal/$modulosCalificados),2);
-
-            $curso->users()->updateExistingPivot($user_id,['puntuacion'=>$promedio],false);
- 
-        }
-
-    }
-
 }
