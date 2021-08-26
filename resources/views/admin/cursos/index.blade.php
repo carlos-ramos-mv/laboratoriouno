@@ -22,10 +22,6 @@
 
             <div class="container mt-3">
 
-                @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger text-center">{{$error}}</div>
-                @endforeach
-
                 @if (sizeof($cursos) > 0)
 
                 <x-data-table>
@@ -149,6 +145,18 @@
     </script>
 
 @endif
+
+@foreach ($errors->all() as $error)
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '{{$error}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+@endforeach
 
     <script>
         $('.delete-form').submit(function(e) {
