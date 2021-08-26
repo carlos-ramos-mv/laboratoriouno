@@ -29,20 +29,22 @@ class HomeController extends Controller
 
             $cursosUser = Auth::user()->cursos()->where('status', '=', 't')->get();
             $cursos = $c;
-
+        
             if (sizeof($cursosUser) > 0) {
-                $cursos = [];
-                for ($i = 0; $i < sizeof($c); $i++) {
-                    for ($j = 0; $j < sizeof($cursosUser); $j++) {
-                        if ($c[$i]->id != $cursosUser[$j]->id) {
-                            $cursos[] = $c[$i];
-                            break;
-                        }
-                    }
-                }
+                $cursos = $c->diff($cursosUser);
             }
         }
-        return view('alumno.home', compact('cursos', 'cursosUser'));
+
+        $rates = [];
+        foreach ($cursos as $curso) {
+            $r = $this->calcularRateCurso($curso);
+            $rates[$curso->id] = $r;
+        }
+        foreach ($cursosUser as $curso) {
+            $r = $this->calcularRateCurso($curso);
+            $rates[$curso->id] = $r;
+        }
+        return view('alumno.home', compact('cursos', 'cursosUser','rates'));
     }
 
     public function perfil()

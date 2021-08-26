@@ -17,7 +17,14 @@ class InstructorController extends Controller
     public function index()
     {
         $instructores = User::role('Instructor')->get();
-        return view('admin.instructores.index',compact('instructores'));
+        $instructoresAdmin = User::role('Instructor')->role('Admin')->get();
+
+        $admins = [];
+        foreach ($instructoresAdmin as $i) {
+            $admins[$i->id] = true;
+        }
+
+        return view('admin.instructores.index',compact('instructores','admins'));
     }
 
     /**
@@ -91,6 +98,7 @@ class InstructorController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->deleteUser($user);
         $user->delete();
         return redirect()->route('admin.instructores.index')->with('delete','¡Instructor eliminado correctamente!');
     }

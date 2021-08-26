@@ -22,6 +22,10 @@
 
             <div class="container mt-3">
 
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger text-center">{{$error}}</div>
+                @endforeach
+
                 @if (sizeof($cursos) > 0)
 
                 <x-data-table>

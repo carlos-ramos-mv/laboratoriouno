@@ -78,7 +78,11 @@ class AvanceController extends Controller
         if ($request->tipo == 'tema') {
             $tema = Tema::find($elemento);
             $result = $this->avanceTema($request, $tema, Auth::user()->id);
-            return redirect()->route($result['ruta'], $result['next']->id);
+            if (!$result) {
+                return redirect()->route($result['ruta'], $result['next']->id);
+            } else {
+                return redirect()->back()->with('error-avance-update','No se pudo actualizar el avance. Intente más tarde.');
+            }
         } else if ($request->tipo == 'actividad') {
             $actividad = Actividad::find($elemento);
         }   

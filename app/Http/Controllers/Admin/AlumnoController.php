@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Traits\AdminTrait;
 use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
 {
+    use AdminTrait;
     /**
      * Display a listing of the resource.
      *
@@ -71,6 +73,7 @@ class AlumnoController extends Controller
      */
     public function update(Request $request,User $alumno)
     {
+        
         $alumno->nombre = $request->nombre;
         $alumno->ap_pat = $request->apPat;
         $alumno->ap_mat = $request->apMat;
@@ -89,6 +92,7 @@ class AlumnoController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->deleteUser($user);
         $user->delete();
         return redirect()->route('admin.alumnos.index')->with('delete','¡Alumno eliminado correctamente!');
     }

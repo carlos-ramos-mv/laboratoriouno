@@ -31,6 +31,7 @@
                             <th>Creado</th>
                             <th>Acción</th>
                             <th>Status</th>
+                            <th>Admin</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +63,16 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @livewire('publicar',['model'=>$instructor,'field'=>'status','key'=>$instructor->id])
+                                        @livewire('publicar',['model'=>$instructor,'field'=>'status','key'=>$instructor->id,'action'=>'update'])
+                                    </td>
+                                    <td>
+                                        @php
+                                        $field = false;
+                                            if ($admins[$instructor->id]) {
+                                                $field = true;
+                                            }
+                                        @endphp
+                                        @livewire('publicar',['model'=>$instructor,'field'=>$field,'key'=>$instructor->id,'action'=>'admin'])
                                     </td>
                                 </tr>
                                 

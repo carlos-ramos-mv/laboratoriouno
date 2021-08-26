@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOMEALUMNO;
+    protected $redirectTo = RouteServiceProvider::VERIFY;
 
     /**
      * Create a new controller instance.
@@ -75,7 +75,7 @@ class RegisterController extends Controller
                 'status' => true,
             ])->assignRole($data['role']);
         }
-        elseif ($data['role']=='Instructor') {
+        else if ($data['role']=='Instructor') {
             return User::create([
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),

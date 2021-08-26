@@ -10,6 +10,8 @@ use App\Models\Modulo;
 use App\Models\Tema;
 use App\Models\User;
 use App\Traits\InstructorTrait;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TemaController extends Controller
 {
@@ -39,7 +41,7 @@ class TemaController extends Controller
         $modulo = Modulo::find($request->modulo);
         $tema = $modulo->temas()->select('numero')->orderBy('numero', 'desc')->first();
         $last = 0;
-        if ($tema!=null) {
+        if ($tema != null) {
             $last = $tema->numero;
         }
         return view('admin.temas.create', compact('last'));
@@ -62,8 +64,8 @@ class TemaController extends Controller
             'contenido' => 'required',
         ]);
 
-        if (Tema::select('id', 'numero')->where('numero',$request->numero)->first()) {
-            $this->renumerarTemas($request->modulo,$request->numero);
+        if (Tema::select('id', 'numero')->where('numero', $request->numero)->first()) {
+            $this->renumerarTemas($request->modulo, $request->numero);
         }
         $tema = new Tema();
 
@@ -111,9 +113,9 @@ class TemaController extends Controller
 
         //return redirect()->action([ModuloController::class, 'show'], $request->modulo)->with('tema-store', '¡Tema agregado correctamente!');
         if (Auth::user()->hasRole('Admin')) {
-            return redirect()->route('admin.modulos.show',$request->modulo)->with('tema-store', '¡Tema agregado correctamente!');
+            return redirect()->route('admin.modulos.show', $request->modulo)->with('tema-store', '¡Tema agregado correctamente!');
         } else if (Auth::user()->hasRole('Instructor')) {
-            return redirect()->route('instructor.modulos.show',$request->modulo)->with('tema-store', '¡Tema agregado correctamente!');
+            return redirect()->route('instructor.modulos.show', $request->modulo)->with('tema-store', '¡Tema agregado correctamente!');
         }
     }
 
@@ -157,8 +159,8 @@ class TemaController extends Controller
             'contenido' => 'required',
         ]);
 
-        if (Tema::select('id', 'numero')->where('numero',$request->numero)->first()) {
-            $this->renumerarTemas($tema->modulo->id,$request->numero,$tema->id);
+        if (Tema::select('id', 'numero')->where('numero', $request->numero)->first()) {
+            $this->renumerarTemas($tema->modulo->id, $request->numero, $tema->id);
         }
 
         $tema->titulo = $request->titulo;
@@ -185,14 +187,22 @@ class TemaController extends Controller
      */
     public function destroy(Tema $tema)
     {
-        $modulo = $tema->modulo_id;
-        $tema->delete();
-        //return redirect()->action([ModuloController::class, 'show'], $modulo)->with('tema-delete', '¡Tema eliminado correctamente!');
-        //return redirect()->route('admin.modulos.show',$modulo)->with('tema-delete','¡Tema eliminado correctamente!');
-        if (Auth::user()->hasRole('Admin')) {
-            return redirect()->route('admin.modulos.show', $modulo)->with('tema-delete', '¡Tema eliminado correctamente!');
-        } else if (Auth::user()->hasRole('Instructor')) {
-            return redirect()->route('instructor.modulos.show', $modulo)->with('tema-delete', '¡Tema eliminado correctamente!');
+        DB::beginTransaction();
+        try {
+            $modulo = $tema->modulo_id;
+            $this->deleteTema($tema);
+            $tema->delete();
+            DB::commit();
+            Log::info("Done");
+            if (Auth::user()->hasRole('Admin')) {
+                return redirect()->route('admin.modulos.show', $modulo)->with('tema-delete', '¡Tema eliminado correctamente!');
+            } else if (Auth::user()->hasRole('Instructor')) {
+                return redirect()->route('instructor.modulos.show', $modulo)->with('tema-delete', '¡Tema eliminado correctamente!');
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->withErrors(['error-tema-delete', 'Hubo un error al eliminar el tema.']);
         }
     }
 }

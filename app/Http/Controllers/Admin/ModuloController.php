@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Traits\AdminTrait;
 use App\Traits\InstructorTrait;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ModuloController extends Controller
 {
@@ -39,9 +41,9 @@ class ModuloController extends Controller
     public function create(Request $request)
     {
         $curso = Curso::find($request->curso);
-        $modulo = $curso->modulos()->select('numero')->orderBy('numero','desc')->first();
+        $modulo = $curso->modulos()->select('numero')->orderBy('numero', 'desc')->first();
         $last = 0;
-        if ($modulo!=null) {
+        if ($modulo != null) {
             $last = $modulo->numero;
         }
         return view('admin.modulos.create', compact('last'));
@@ -63,8 +65,8 @@ class ModuloController extends Controller
             'descripcion' => 'required',
         ]);
 
-        if (Modulo::select('id', 'numero')->where('numero',$request->numero)->first()) {
-            $this->renumerarModulos($request->curso,$request->numero);
+        if (Modulo::select('id', 'numero')->where('numero', $request->numero)->first()) {
+            $this->renumerarModulos($request->curso, $request->numero);
         }
         $modulo = new Modulo();
 
@@ -105,9 +107,8 @@ class ModuloController extends Controller
                 $avance->progreso = 0;
                 $avance->save();
                 $avance = new Avance();
-                $this->actualizarProgresoCurso($modulo->curso,$user->id);
+                $this->actualizarProgresoCurso($modulo->curso, $user->id);
             }
-            
         } else {
             $modulo->status = false;
         }
@@ -115,9 +116,9 @@ class ModuloController extends Controller
 
         //return redirect()->action([CursoController::class, 'show'], $request->curso)->with('modulo-store', '¡Módulo agregado correctamente!');
         if (Auth::user()->hasRole('Admin')) {
-            return redirect()->route('admin.cursos.show',$request->curso)->with('modulo-store', '¡Módulo agregado correctamente!');
+            return redirect()->route('admin.cursos.show', $request->curso)->with('modulo-store', '¡Módulo agregado correctamente!');
         } else if (Auth::user()->hasRole('Instructor')) {
-            return redirect()->route('instructor.cursos.show',$request->curso)->with('modulo-store', '¡Módulo agregado correctamente!');
+            return redirect()->route('instructor.cursos.show', $request->curso)->with('modulo-store', '¡Módulo agregado correctamente!');
         }
     }
 
@@ -130,7 +131,7 @@ class ModuloController extends Controller
     public function show(Modulo $modulo)
     {
         $temas = $modulo->temas()->orderBy('numero')->get();
-        return view('admin.modulos.show',compact('modulo','temas'));
+        return view('admin.modulos.show', compact('modulo', 'temas'));
     }
 
     /**
@@ -141,7 +142,7 @@ class ModuloController extends Controller
      */
     public function edit(Modulo $modulo)
     {
-        return view('admin.modulos.edit',compact('modulo'));
+        return view('admin.modulos.edit', compact('modulo'));
     }
 
     /**
@@ -160,10 +161,10 @@ class ModuloController extends Controller
             'descripcion' => 'required',
         ]);
 
-        if (Modulo::select('id', 'numero')->where('numero',$request->numero)->first()) {
-            $this->renumerarModulos($modulo->curso->id,$request->numero,$modulo->id);
+        if (Modulo::select('id', 'numero')->where('numero', $request->numero)->first()) {
+            $this->renumerarModulos($modulo->curso->id, $request->numero, $modulo->id);
         }
-        
+
         $modulo->numero = $request->numero;
         $modulo->titulo = $request->titulo;
         $modulo->breve_descripcion = $request->breveDescripcion;
@@ -173,9 +174,9 @@ class ModuloController extends Controller
 
         //return redirect()->action([CursoController::class, 'show'], $modulo->curso_id)->with('modulo-update','¡Módulo actualizado correctamente!');
         if (Auth::user()->hasRole('Admin')) {
-            return redirect()->route('admin.cursos.show',$modulo->curso_id)->with('modulo-update','¡Módulo actualizado correctamente!');
+            return redirect()->route('admin.cursos.show', $modulo->curso_id)->with('modulo-update', '¡Módulo actualizado correctamente!');
         } else if (Auth::user()->hasRole('Instructor')) {
-            return redirect()->route('instructor.cursos.show',$modulo->curso_id)->with('modulo-update','¡Módulo actualizado correctamente!');
+            return redirect()->route('instructor.cursos.show', $modulo->curso_id)->with('modulo-update', '¡Módulo actualizado correctamente!');
         }
     }
 
@@ -187,14 +188,22 @@ class ModuloController extends Controller
      */
     public function destroy(Modulo $modulo)
     {
-        $curso = $modulo->curso_id;
-        $modulo->delete();
-        //return redirect()->action([CursoController::class, 'show'], $curso)->with('modulo-delete','¡Módulo eliminado correctamente!');
-        if (Auth::user()->hasRole('Admin')) {
-            return redirect()->route('admin.cursos.show',$curso)->with('modulo-delete','¡Módulo eliminado correctamente!');
-        } else if (Auth::user()->hasRole('Instructor')) {
-            return redirect()->route('instructor.cursos.show',$curso)->with('modulo-delete','¡Módulo eliminado correctamente!');
+        DB::beginTransaction();
+        try {
+            $curso = $modulo->curso_id;
+            $this->deleteModulo($modulo);
+            $modulo->delete();
+            DB::commit();
+            Log::info("Done");
+            if (Auth::user()->hasRole('Admin')) {
+                return redirect()->route('admin.cursos.show', $curso)->with('modulo-delete', '¡Módulo eliminado correctamente!');
+            } else if (Auth::user()->hasRole('Instructor')) {
+                return redirect()->route('instructor.cursos.show', $curso)->with('modulo-delete', '¡Módulo eliminado correctamente!');
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->withErrors(['error-modulo-delete', 'Hubo un error al eliminar el módulo.']);
         }
     }
-
 }

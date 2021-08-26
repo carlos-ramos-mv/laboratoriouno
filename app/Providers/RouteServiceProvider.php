@@ -19,6 +19,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const ROOT = '/';
 
+    public const VERIFY = '/email/verify';
+
     public const HOME = '/index';
 
     public const HOMEALUMNO = '/alumno';

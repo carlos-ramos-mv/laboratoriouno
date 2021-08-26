@@ -54,8 +54,8 @@ class HomeController extends Controller
     {
         $query = " SELECT table_name
         FROM information_schema.tables
-       WHERE table_schema='public'
-         AND table_type='BASE TABLE';";
+        WHERE table_schema='public'
+        AND table_type='BASE TABLE';";
         $table_name = DB::select($query);
         $tables = [];
         foreach ($table_name as $table) {

@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Traits;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Update profile trait
@@ -17,13 +19,19 @@ trait PerfilTrait
             'nombre' => 'max:50',
             'dob' => ['required', 'date', 'before:today'],
         ]);
-        $user->ap_pat = $request->ap_pat;
-        $user->ap_mat = $request->ap_mat;
-        $user->nombre = $request->nombre;
-        $user->dob = $request->dob;
+        DB::beginTransaction();
+        try {
+            $user->ap_pat = $request->ap_pat;
+            $user->ap_mat = $request->ap_mat;
+            $user->nombre = $request->nombre;
+            $user->dob = $request->dob;
 
-        $user->save();
-
-        return true;
+            $user->save();
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
     }
 }

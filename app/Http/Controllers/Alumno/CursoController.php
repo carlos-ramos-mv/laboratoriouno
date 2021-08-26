@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Alumno;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Avance;
 use App\Models\Curso;
 use App\Traits\AlumnoTrait;
 
@@ -27,7 +26,7 @@ class CursoController extends Controller
     {
         $user = Auth::user();
         $cursos = $user->cursos;
-
+        
         return view('alumno.cursos.index', compact('cursos'));
     }
 
@@ -128,6 +127,7 @@ class CursoController extends Controller
 
     public function inscribirse(Curso $curso)
     {
-        $this->inscribirse($curso, Auth::user());
+        $this->inscripcion($curso, Auth::user());
+        return redirect()->action([CursoController::class, 'show',], $curso->id)->with('inscrito', '¡Ahora estás inscrito en este curso!');
     }
 }

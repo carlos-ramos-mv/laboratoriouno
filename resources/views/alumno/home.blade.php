@@ -22,7 +22,7 @@
             </div>
         </div>
     
-        <div class="p-3">
+        <div class="p-3 row">
     
             @if (sizeof($cursosUser)==0)
 
@@ -35,7 +35,7 @@
             @foreach ($cursosUser as $curso)
 
             @php
-                $rate = 3.6;
+                $rate = $rates[$curso->id];
                 $img = '/assets/images/small/img-4.jpg';
             @endphp
 
@@ -62,7 +62,7 @@
                 <h1 class="display-1">Cursos disponibles para ti</h1>
             </div>
         </div>        
-        <div class="p-3">
+        <div class="p-3 row">
     
             @if (sizeof($cursos)==0)
 
@@ -74,7 +74,7 @@
             @foreach ($cursos as $curso)
 
             @php
-                $rate = 3.6;
+                $rate = $rates[$curso->id];
                 $img = '/assets/images/small/img-4.jpg';
             @endphp
 

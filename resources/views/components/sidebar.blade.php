@@ -13,7 +13,11 @@
 
                     @can('admin.home')
                         <li>
-                            <a href="{{route('admin.home')}}" class="waves-effect">
+                            <a href="@role('Admin')
+                                    {{route('admin.home')}}
+                                    @else
+                                    {{route('instructor.home')}}
+                                    @endrole" class="waves-effect">
                                 <i class="mdi mdi-view-dashboard-outline"></i>
                                 <span key="">Dashboard</span>
                             </a>
@@ -109,15 +113,15 @@
                             </ul>                        
                         </li>
 
-                        {{-- <li>
+                        <li>
                             <a href="javascript: void(0)" class="waves-effect has-arrow">
                                 <i class="mdi mdi-star-circle"></i>
                                 <span key="" >Puntuaciones</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="">
-                                <li><a href="{{route('admin.instructores.index')}}" key="">Ver todos</a></li>
+                                <li><a href="{{route('alumno.puntuaciones')}}" key="">Ver todos</a></li>
                             </ul>                        
-                        </li> --}}
+                        </li>
                         
                     @endcan
 

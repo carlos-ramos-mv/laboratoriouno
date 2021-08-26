@@ -23,13 +23,13 @@ Auth::routes(['verify' => true]);
 //PÁGINA DE INICIO
 Route::get('/', [InicioController::class, 'root'])->name('root');
 
-//Index Route
+//INDEX ROUTE
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-//STATUS
+//STATUS FALSE ON INTRUCTOR ROLE
 Route::get('/status', [HomeController::class, 'status'])->name('status');
 
-//ADMIN
+//ADMIN ROUTES
 Route::middleware(['auth', 'status'])->group(function () {
     Route::group(['middleware' => ['role:Admin']],function ()
     {
@@ -50,6 +50,7 @@ Route::middleware(['auth', 'status'])->group(function () {
         Route::get('/admin/instructores/activar', [App\Http\Controllers\Admin\InstructorController::class, 'activar'])->name('admin.instructores.activar');
     });
 
+    //INSTRUCTOR ROLE
     Route::group(['middleware' => ['role:Instructor']],function ()
     {
         Route::get('/instructor', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('instructor.home');
@@ -63,7 +64,7 @@ Route::middleware(['auth', 'status'])->group(function () {
     });
 });
 
-//ALUMNO
+//ALUMNO ROUTES
 Route::group(['middleware' => ['role:Alumno']],function ()
 {
     Route::get('/alumno', [App\Http\Controllers\Alumno\HomeController::class, 'index'])->name('alumno.home');
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['role:Alumno']],function ()
     Route::get('/alumno/temas/{tema}', [App\Http\Controllers\Alumno\TemaController::class, 'show'])->name('alumno.temas.show');
     Route::put('/alumno/avances/{id}', [App\Http\Controllers\Alumno\AvanceController::class, 'update'])->name('alumno.avances.update');
     Route::get('/alumno/actividades/{actividad}', [App\Http\Controllers\Alumno\ActividadController::class, 'show'])->name('alumno.actividades.show');
+    Route::get('/alumno/puntuaciones', [App\Http\Controllers\Alumno\HomeController::class, 'puntuaciones'])->name('alumno.puntuaciones');
 });
 
 

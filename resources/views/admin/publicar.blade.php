@@ -30,7 +30,8 @@
                                     <div class="col-2 col-sm-1 align-self-center">
                                         @livewire('publicar',['model'=>$cursos[$i],
                                                                 'field'=>'status',
-                                                                'key'=>$cursos[$i]->id])
+                                                                'key'=>get_class($cursos[$i]).$cursos[$i]->id,'action'=>'update',
+                                                                'action'=>'publicar'])
                                     </div>
                                 </div>
                                 <div id="flush-collapse-curso{{ $i }}" class="accordion-collapse collapse"
@@ -55,7 +56,8 @@
                                                         <div class="col-1 align-self-center">
                                                             @livewire('publicar',['model'=>$cursos[$i]->modulos[$j],
                                                                                 'field'=>'status',
-                                                                                'key'=>$cursos[$i]->modulos[$j]->id])
+                                                                                'key'=>get_class($cursos[$i]->modulos[$j]).$cursos[$i]->modulos[$j]->id,
+                                                                                'action'=>'publicar'])
                                                         </div>
                                                     </div>
                                                     <div id="flush-collapse-modulo{{ $j }}"
@@ -82,7 +84,8 @@
                                                                             <div class="col-1 align-self-center">
                                                                                 @livewire('publicar',['model'=>$cursos[$i]->modulos[$j]->temas[$k],
                                                                                                 'field'=>'status',
-                                                                                                'key'=>$cursos[$i]->modulos[$j]->temas[$k]->id])
+                                                                                                'key'=>get_class($cursos[$i]->modulos[$j]->temas[$k]).$cursos[$i]->modulos[$j]->temas[$k]->id,
+                                                                                                'action'=>'publicar'])
                                                                             </div>
                                                                         </div>
                                                                         <div id="flush-collapse-tema{{ $k }}"
@@ -99,7 +102,8 @@
                                                                                             <div class="col-1 align-self-center">
                                                                                                 @livewire('publicar',['model'=>$cursos[$i]->modulos[$j]->temas[$k]->actividades[$l],
                                                                                                 'field'=>'status',
-                                                                                                'key'=>$cursos[$i]->modulos[$j]->temas[$k]->actividades[$l]->id])
+                                                                                                'key'=>get_class($cursos[$i]->modulos[$j]->temas[$k]->actividades[$l]).$cursos[$i]->modulos[$j]->temas[$k]->actividades[$l]->id,
+                                                                                                'action'=>'publicar'])
                                                                                             </div>
                                                                                         </div>
 
@@ -132,4 +136,18 @@
 
 @section('script')
     @livewireScripts
+
+    <script>
+        function wait() {
+            Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: 'Espere un momento...',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            timer: 6000
+        });   
+        }
+    </script>
+
 @endsection
